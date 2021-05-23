@@ -134,10 +134,11 @@
 #_(extend-type js/Object
     Renderable
     (render [self]
-      (span-render self "clj-unkown")))
+      (span-render self "clj-unknown")))
 
 (extend-type default
   Renderable
   (render [self]
-    (println "unkown type: " (type self))
+    (println "render of unknown type: " (type self))
+    (println "render of unknown type: " (pr-str self))
     (span-render self "clj-unknown")))

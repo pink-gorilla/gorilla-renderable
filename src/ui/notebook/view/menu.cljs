@@ -10,9 +10,13 @@
 (defn link-dispatch [rf-evt text]
   (link-fn #(rf/dispatch rf-evt) text))
 
+(defn link-href [href text]
+  [:a.bg-blue-300.cursor-pointer.hover:bg-red-700.m-1
+   {:href href} text])
+
 (defn menu []
   [:div
-   [:span [link-dispatch [:bidi/goto  :demo/main] "main"]]
+   [:span [link-href "/" "main"]]
    [:span [link-dispatch [:doc/add data/document] "load"]]
 
    [:span [link-dispatch [:notebook/move :to 1] "activate 1"]]
