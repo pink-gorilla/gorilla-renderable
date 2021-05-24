@@ -1,8 +1,8 @@
 (ns picasso.data.document)
 
 (def document
-  {:id :7c9ab23f-c32f-4879-b74c-de7835ca8ba4
-   :meta {:title "demo 123"
+  {:meta {:id :7c9ab23f-c32f-4879-b74c-de7835ca8ba4
+          :title "demo 123"
           :tags #{:demo :simple}}
    :segments
    [{:id 1

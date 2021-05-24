@@ -12,8 +12,9 @@
 (rf/reg-event-db
  :doc/add
  (fn
-   [db [_ {:keys [id segments] :as document}]]
-   (let [db (if (:docs db)
+   [db [_ {:keys [meta segments] :as document}]]
+   (let [doc-id (:id meta)
+         db (if (:docs db)
               db
               (assoc db :docs {}))
          order (vec (map :id segments))
@@ -22,8 +23,8 @@
                          :queued   #{} ; code segments that are qued for evaluation
                          :order order
                          :active   (first order))]
-     (debugf "Adding document: %s " id)
-     (assoc-in db [:docs id] document))))
+     (debugf "Adding document: %s " doc-id)
+     (assoc-in db [:docs doc-id] document))))
 
 (rf/reg-event-db
  :doc/doc-active
@@ -34,7 +35,7 @@
  :doc/load
  (fn [_ [_ nb]]
    (rf/dispatch [:doc/add nb])
-   (rf/dispatch [:doc/doc-active (:id nb)])))
+   (rf/dispatch [:doc/doc-active (get-in nb [:meta :id])])))
 
 (rf/reg-sub
  :doc/view

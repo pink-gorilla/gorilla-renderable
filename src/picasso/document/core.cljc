@@ -4,8 +4,7 @@
    [com.rpl.specter :as s]))
 
 (defn new-notebook []
-  {:id (guuid)
-   :meta {}
+  {:meta {:id (guuid)}
    :segments []})
 
 (defn set-meta-key [doc k v]
