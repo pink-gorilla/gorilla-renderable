@@ -11,7 +11,7 @@
 (defmethod kernel-eval :default [m]
   (let [c (chan)]
     (go (>! c {:id (guuid)
-               :error "kernel unknown"})
+               :err (str "kernel unknown: " (:kernel m))})
         (close! c))
     c))
 

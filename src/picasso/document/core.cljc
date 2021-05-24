@@ -3,10 +3,13 @@
    [picasso.id :refer [guuid]]
    [com.rpl.specter :as s]))
 
-(defn create []
+(defn new-notebook []
   {:id (guuid)
    :meta {}
    :segments []})
+
+(defn set-meta-key [doc k v]
+  (assoc-in doc [:meta k] v))
 
 (defn md-segment [md]
   {:id (guuid)
@@ -15,9 +18,9 @@
    :state nil})
 
 (defn code-segment [kernel code]
-  {:type :code
-   :kernel (or kernel :clj)
-   :data   {:kernel (or kernel :empty)
+  {:id (guuid)
+   :type :code
+   :data   {:kernel (or kernel :clj)
             :code (or code "")}
    :state {}})
 
@@ -91,6 +94,14 @@
    [:segments (s/filterer (partial seg-with-id id)) s/ALL :state]
    state
    doc))
+
+#_(defn toggle-view-segment
+    [{:keys [id type] :as segment}]
+    (let [segment (if (= type :code)
+                    (create-md-segment (:code segment))
+                    (create-code-segment (:md segment)))]
+      (-> segment
+          (assoc :id id))))
 
 (comment
 

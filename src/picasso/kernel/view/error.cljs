@@ -18,7 +18,7 @@
 (def view (partial helpers/view styles))
 
 (defn error-text [err root-ex]
-  (when (and err root-ex)
+  (when (or err root-ex)
     [view :error-text
      (when err
        [text err])

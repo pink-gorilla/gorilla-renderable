@@ -27,7 +27,8 @@
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ; uuid - clojurescript
                  [org.clojure/data.codec "0.1.1"]] ; image base64 encoding
 
-  :profiles {:demo {:source-paths ["profiles/demo/src"]}         
+  :profiles {:demo {:source-paths ["profiles/demo/src"]}  
+            
              :webly {:dependencies [[org.pinkgorilla/webly "0.2.40"]
                                     [org.pinkgorilla/pinkie "0.3.3"] 
                                     [org.pinkgorilla/ui-markdown "0.0.6"]
@@ -69,6 +70,10 @@
             
              "demo"
              ["with-profile" "+webly" "run" "-m" "demo.app" "watch"]
+            
+            "transactor"
+            ["with-profile" "+demo" "run" "-m" "demo.notebook"]
+
 })
 
 

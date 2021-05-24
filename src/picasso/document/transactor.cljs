@@ -6,7 +6,8 @@
    [picasso.document.transact :refer [fns-lookup transact]]
    [picasso.document.position :as pos]
    [picasso.document.core :as nb]
-   [picasso.document.kernel :as k]))
+   [picasso.document.kernel :as k]
+   [picasso.document.commands]))
 
 (rf/reg-event-db
  :doc/add
@@ -24,15 +25,21 @@
      (debugf "Adding document: %s " id)
      (assoc-in db [:docs id] document))))
 
-(rf/reg-sub
- :doc/view
- (fn [db [_ id]]
-   (get-in db [:docs id])))
-
 (rf/reg-event-db
  :doc/doc-active
  (fn [db [_ id]]
    (assoc db :doc-active id)))
+
+(rf/reg-event-fx
+ :doc/load
+ (fn [_ [_ nb]]
+   (rf/dispatch [:doc/add nb])
+   (rf/dispatch [:doc/doc-active (:id nb)])))
+
+(rf/reg-sub
+ :doc/view
+ (fn [db [_ id]]
+   (get-in db [:docs id])))
 
 #_(defn run [fun-args]
     (reset! doc (transact @doc fun-args))
@@ -53,6 +60,13 @@
   (rf/dispatch [:doc/exec fun-args]))
 
 (swap! fns-lookup assoc
+       ;:new-notebook (fn [_] ; doc-old
+       ;                (nb/new-notebook))
+       ;:load-notebook (fn [_ nb-new] ; doc-old
+       ;          (info "loading notebook: " nb-new)
+       ;                 (rf/dispatch [:doc/add nb-new])
+       ;                 (rf/dispatch [:doc/doc-active (:id data/document)])
+       ;            nb-new)
        ;:set-active (fn [doc id]
        ;              (assoc-in doc [:active] id))
        :eval-all (partial eval/eval-all exec)
@@ -106,10 +120,8 @@
    (debug "sub seg-id: " seg-id)
    (nb/get-segment notebook seg-id)))
 
-(rf/reg-event-fx
- :segment-active/kernel-toggle
- (fn [_ _]
-   (rf/dispatch [:doc/exec [:kernel-toggle-active]])))
+
+
 
 
 

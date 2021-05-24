@@ -4,7 +4,8 @@
    [picasso.document.core :as edit]))
 
 (defonce fns-lookup
-  (atom {:add-md edit/add-md
+  (atom {:set-meta-key edit/set-meta-key
+         :add-md edit/add-md
          :add-code edit/add-code
          :remove-segment edit/remove-segment
          :clear-all edit/clear-all
@@ -24,7 +25,7 @@
       (if args
         (do (info "transact fun " fun-kw "args: " args)
             (apply fun doc args))
-        (do (info "transact fun fun-kw")
+        (do (info "transact fun " fun-kw "no args")
             (fun doc))))
     (do (error "transact fn not found:" fun-kw)
         doc)))

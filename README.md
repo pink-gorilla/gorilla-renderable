@@ -90,6 +90,13 @@ lein test-js
 - `:goldly` not yet implemented. will be in goldly 
 
 
+# notebook transactor
+
+`lein transactor new` creates demo-nb.edn
+`lein transactor add` adds new code segment to document,and reevaluates notebook.
+
+
+
 ## Licence
 
 This code is licensed to you under the MIT licence. See LICENCE.txt for details.
