@@ -1,4 +1,4 @@
-(ns ui.notebook.view.menu
+(ns demo.menu
   (:require
    [re-frame.core :as rf]
    [picasso.data.document :as data]))
@@ -21,7 +21,24 @@
 
    [:span [link-dispatch [:notebook/move :to 1] "activate 1"]]
    [:span [link-dispatch [:notebook/move :to 8] "activate 8"]]
-
+   [:span [link-dispatch [:notebook/move :down] "move down"]]
+   [:span [link-dispatch [:notebook/move :up] "move up"]]
+   
    [:span [link-dispatch [:doc/exec [:clear-all]] "clear all"]]
    [:span [link-dispatch [:doc/exec [:eval-all]] "eval all"]]
    [:span [link-dispatch [:notebook/layout-toggle] "layout"]]])
+
+(defn template-header-document [header document]
+  [:div {:style {:display "grid"
+                 :height "100vh"
+                 :width "100vw"
+                 :grid-template-columns "auto"
+                 :grid-template-rows "30px auto"}}
+   header
+   ;[:div.overflow-auto.m-0.p-0
+   ; {:style {:background-color "red"
+   ;          :height "100%"
+    ;         :max-height "100%"}}
+   document]
+;  ]
+  )

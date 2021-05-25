@@ -4,6 +4,7 @@
    [webly.web.handler :refer [reagent-page]]
    [picasso.data.document :as data] ; sample-data
    [ui.notebook.core :refer [notebook-view]]
+   [demo.menu :refer [template-header-document menu]]
    ))
 
 (rf/dispatch [:doc/load data/document])
@@ -16,4 +17,6 @@
    })
 
 (defmethod reagent-page :notebook/current [{:keys [route-params query-params handler] :as route}]
-  [notebook-view opts])
+  [template-header-document
+    [menu]
+    [notebook-view opts]])

@@ -1,7 +1,6 @@
 (ns ui.notebook.core
   (:require
    [re-frame.core :as rf]
-
    ; side-effects
    [picasso.kernel.view.picasso :refer [picasso-result]]
    [picasso.kernel.view.default-painter] ; side-effects
@@ -13,7 +12,7 @@
    ; notebook
    [ui.notebook.view.layout :refer [notebook-layout]]
    [ui.notebook.settings] ; side-effects
-   [ui.notebook.view.menu :refer [menu]]))
+   ))
 
 (defn render-unknown [{:keys [id type data state] :as seg}]
   [:div.render-unknown
@@ -36,30 +35,13 @@
      [:p "meta: " (pr-str meta)]]
     (into [:div] (map seg-view segments))))
 
-(defn template-header-document [header document]
-  [:div {:style {:display "grid"
-                 :height "100vh"
-                 :width "100vw"
-                 :grid-template-columns "auto"
-                 :grid-template-rows "30px auto"}}
-   header
-   ;[:div.overflow-auto.m-0.p-0
-   ; {:style {:background-color "red"
-   ;          :height "100%"
-    ;         :max-height "100%"}}
-   document]
-;  ]
-  )
-
 (defn notebook-view [opts]
   (let [doc (rf/subscribe [:notebook]) ; current notebook
         layout (rf/subscribe [:notebook/layout])]
     (fn [opts]
-      [template-header-document
-       [menu]
        ;[:div.w-full.h-full.min-h-full.bg-gray-100 ; .overflow-scroll
-       [notebook-layout
-        (merge {:layout @layout} opts)
-        (segment-active @doc)
-        (:segments @doc)]])))
+      [notebook-layout
+       (merge {:layout @layout} opts)
+       (segment-active @doc)
+       (:segments @doc)])))
 

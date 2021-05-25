@@ -7,6 +7,11 @@
 
 
 (rf/reg-event-fx
+ :notebook/evaluate-all
+ (fn [_ _]
+   (rf/dispatch [:doc/exec [:eval-all]])))
+
+(rf/reg-event-fx
  :segment-active/kernel-toggle
  (fn [_ _]
    (rf/dispatch [:doc/exec [:kernel-toggle-active]])))
