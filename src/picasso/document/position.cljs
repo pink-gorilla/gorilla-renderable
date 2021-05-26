@@ -10,43 +10,45 @@
 (defn remove-active-segment [notebook]
   (nb/remove-segment notebook (active-segment-id notebook)))
 
-(defn segment-ids-ordered [notebook]
-  (:order notebook))
-
 (defn segment-active [doc]
   (let [active-id (:active doc)
         segment (when (and doc active-id)
                   (nb/get-segment doc active-id))]
     segment))
 
-(defn move [order current-segment-id direction]
-  (info "move " current-segment-id direction  " order: " order)
-  (let [v-indexed (map-indexed (fn [idx id] [idx id]) order)
+(defn move-up-down [doc direction]
+  (if-let [current-segment-id (:active doc)]
+    (let [_ (info "move-up-down " current-segment-id "dir:" direction)
+          segments (:segments doc)
+          order (map :id segments)
+          v-indexed (map-indexed (fn [idx id] [idx id]) order)
         ;_ (info "v-indexed: " v-indexed)
-        current (first
-                 (filter
-                  (fn [[idx id]] (= current-segment-id id))
-                  v-indexed))
+          current (first
+                   (filter
+                    (fn [[idx id]] (= current-segment-id id))
+                    v-indexed))
         ;_ (info "current: " current)
-        current-idx (get current 0)
-        lookup (into {} v-indexed)
+          current-idx (get current 0)
+          lookup (into {} v-indexed)
         ;_ (info "lookup: " lookup)
-        idx-target (case direction
-                     :down (min (+ current-idx 1) (- (count order) 1))
-                     :up (max 0 (- current-idx 1)))
+          idx-target (case direction
+                       :down (min (+ current-idx 1) (- (count segments) 1))
+                       :up (max 0 (- current-idx 1)))
         ;_ (info "idx-target: " idx-target)
-        ]
-    (info "new current: " (get lookup idx-target))
-    (get lookup idx-target)))
+          ]
+      (info "new current: " (get lookup idx-target))
+      (get lookup idx-target))
+    (do (error "cannot move-up-down: no active segment")
+        nil)))
 
 (rf/reg-event-db
  :notebook/move
  (fn [db [_ direction id]]
    (let [fun (case direction
-               :up #(move (:order %) (:active %) direction)
-               :down #(move (:order %) (:active %) direction)
-               :first #(first (:order %))
-               :last #(last (:order %))
+               :up #(move-up-down  %  direction)
+               :down #(move-up-down  %  direction)
+               :first #(first (:segments %))
+               :last #(last (:segments %))
                :to (fn [_] id))
          assoc-active (fn [doc]
                         (assoc doc :active (fun doc)))]

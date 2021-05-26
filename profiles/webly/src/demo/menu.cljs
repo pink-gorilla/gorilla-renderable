@@ -1,7 +1,8 @@
 (ns demo.menu
   (:require
    [re-frame.core :as rf]
-   [picasso.data.document :as data]))
+   [picasso.data.document :as data]
+   [ui.notebook.menu]))
 
 (defn link-fn [fun text]
   [:a.bg-blue-300.cursor-pointer.hover:bg-red-700.m-1
@@ -16,17 +17,18 @@
 
 (defn menu []
   [:div
-   [:span [link-href "/" "main"]]
-   [:span [link-dispatch [:doc/add data/document] "load"]]
+   [link-href "/" "main"]
+   [link-dispatch [:doc/load data/document] "load"]
 
-   [:span [link-dispatch [:notebook/move :to 1] "activate 1"]]
-   [:span [link-dispatch [:notebook/move :to 8] "activate 8"]]
-   [:span [link-dispatch [:notebook/move :down] "move down"]]
-   [:span [link-dispatch [:notebook/move :up] "move up"]]
-   
-   [:span [link-dispatch [:doc/exec [:clear-all]] "clear all"]]
-   [:span [link-dispatch [:doc/exec [:eval-all]] "eval all"]]
-   [:span [link-dispatch [:notebook/layout-toggle] "layout"]]])
+   [link-dispatch [:notebook/move :to 1] "activate 1"]
+   [link-dispatch [:notebook/move :to 8] "activate 8"]
+
+   [ui.notebook.menu/menu]
+
+   ;[:span [link-dispatch [:doc/exec [:clear-all]] "clear all"]]
+   ;[:span [link-dispatch [:doc/exec [:eval-all]] "eval all"]]
+   ;[:span [link-dispatch [:notebook/layout-toggle] "layout"]]
+   ])
 
 (defn template-header-document [header document]
   [:div {:style {:display "grid"

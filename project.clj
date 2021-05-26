@@ -18,7 +18,7 @@
 
   :source-paths ["src"]
   :target-path  "target/jar"
-
+  :resource-paths  ["resources"] ; notebook-ui resources (css)
   :dependencies [[org.clojure/tools.reader "1.3.5"] ; tag version
                  [org.clojure/clojure "1.10.3"]
                  [org.clojure/core.async "1.3.618"]

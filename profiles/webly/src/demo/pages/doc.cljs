@@ -1,6 +1,7 @@
 (ns demo.pages.doc
   (:require
    [re-frame.core :as rf]
+   [taoensso.timbre :as timbre :refer [info]]
    [webly.web.handler :refer [reagent-page]]
    [picasso.data.document :as data] ; sample-data
    [ui.notebook.core :refer [notebook-view]]
@@ -20,3 +21,9 @@
   [template-header-document
     [menu]
     [notebook-view opts]])
+
+
+(rf/reg-event-fx
+ :document/new
+ (fn [_ [_]]
+     (rf/dispatch [:doc/new])))

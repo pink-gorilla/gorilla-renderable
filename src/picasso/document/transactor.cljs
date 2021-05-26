@@ -17,12 +17,10 @@
          db (if (:docs db)
               db
               (assoc db :docs {}))
-         order (vec (map :id segments))
          document (assoc document
                          :ns       nil  ; current namespace
                          :queued   #{} ; code segments that are qued for evaluation
-                         :order order
-                         :active   (first order))]
+                         :active   (first segments))]
      (debugf "Adding document: %s " doc-id)
      (assoc-in db [:docs doc-id] document))))
 
@@ -36,6 +34,14 @@
  (fn [_ [_ nb]]
    (rf/dispatch [:doc/add nb])
    (rf/dispatch [:doc/doc-active (get-in nb [:meta :id])])))
+
+(rf/reg-event-fx
+ :doc/new
+ (fn [_ [_]]
+   (let [nb (nb/new-notebook)
+         nb (nb/add-code nb :clj "")]
+     (rf/dispatch [:doc/add nb])
+     (rf/dispatch [:doc/doc-active (get-in nb [:meta :id])]))))
 
 (rf/reg-sub
  :doc/view

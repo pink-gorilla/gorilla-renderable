@@ -32,6 +32,13 @@
    (info "changing notebook meta " k " to: " v)
    (rf/dispatch [:doc/exec [:set-meta-key k v]])))
 
+(rf/reg-event-fx
+ :segment/add
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:add-code :clj ""]])))
+
+;:segment/new-below
+
 #_(defn insert-segment
     [index-fn notebook]
     (let [{:keys [active order]} notebook
