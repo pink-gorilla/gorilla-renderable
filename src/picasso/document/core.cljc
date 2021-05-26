@@ -71,6 +71,12 @@
    code
    doc))
 
+(defn insert-before [doc idx seg]
+  (s/setval
+   [:segments (s/before-index idx)]
+   seg
+   doc))
+
 (defn set-md-segment [doc id md]
   (s/setval
    [:segments (s/filterer (partial seg-with-id id)) s/ALL :data]

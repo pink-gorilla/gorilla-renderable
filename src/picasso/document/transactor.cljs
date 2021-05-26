@@ -79,6 +79,8 @@
        :eval-all (partial eval/eval-all exec)
        :eval-segment (partial eval/eval-segment-id exec)
        :remove-segment-active pos/remove-active-segment
+       :insert-before pos/insert-before
+       :insert-below pos/insert-below
        :kernel-toggle-active k/kernel-toggle-active)
 
 

@@ -2,7 +2,8 @@
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
    [re-frame.core :as rf]
-   [picasso.document.core :as nb]))
+   [picasso.document.core :as nb]
+   [com.rpl.specter :as s]))
 
 (defn active-segment-id [notebook]
   (:active notebook))
@@ -15,6 +16,39 @@
         segment (when (and doc active-id)
                   (nb/get-segment doc active-id))]
     segment))
+
+(defn indexed
+  "Returns a lazy sequence of [index, item] pairs, where items come
+  from 's' and indexes count up from zero.
+
+  (indexed '(a b c d))  =>  ([0 a] [1 b] [2 c] [3 d])"
+  [s]
+  (map vector (iterate inc 0) s))
+
+(defn positions
+  "Returns a lazy sequence containing the positions at which pred
+   is true for items in coll."
+  [pred coll]
+  (for [[idx elt] (indexed coll) :when (pred elt)] idx))
+
+(defn position [pred coll]
+  (first (positions pred coll)))
+
+(defn insert-before [doc]
+  (let [active-id (:active doc)
+        active-idx (when active-id (position #(= active-id (:id %)) (:segments doc)))]
+    (info "insert-before id:" active-id "pos: " active-idx)
+    (if active-idx
+      (nb/insert-before doc active-idx (nb/code-segment :clj ""))
+      doc)))
+
+(defn insert-below [doc]
+  (let [active-id (:active doc)
+        active-idx (when active-id (position #(= active-id (:id %)) (:segments doc)))]
+    (info "insert-below id:" active-id "pos: " active-idx)
+    (if active-idx
+      (nb/insert-before doc (inc active-idx) (nb/code-segment :clj ""))
+      doc)))
 
 (defn move-up-down [doc direction]
   (if-let [current-segment-id (:active doc)]

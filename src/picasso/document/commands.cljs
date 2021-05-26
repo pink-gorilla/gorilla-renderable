@@ -46,16 +46,14 @@
           new-segment (create-code-segment "")]
       (insert-segment-at notebook (index-fn active-idx) new-segment)))
 
-#_(reg-event-db
-   :segment/new-above
-   (fn [db _]
-     (notebook-op
-      db
-      (partial insert-segment identity))))
+(rf/reg-event-fx
+ :segment/new-above
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:insert-before]])))
 
-#_(reg-event-db
-   :segment/new-below
-   (fn [db _]
-     (notebook-op
-      db
-      (partial insert-segment inc))))
+(rf/reg-event-fx
+ :segment/new-below
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:insert-below]])))
+
+

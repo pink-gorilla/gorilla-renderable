@@ -23,6 +23,9 @@
    [link-dispatch [:notebook/move :to 1] "activate 1"]
    [link-dispatch [:notebook/move :to 8] "activate 8"]
 
+   [link-dispatch [:segment/new-above] "new above"]
+   [link-dispatch [:segment/new-below] "new below"]
+
    [ui.notebook.menu/menu]
 
    ;[:span [link-dispatch [:doc/exec [:clear-all]] "clear all"]]
