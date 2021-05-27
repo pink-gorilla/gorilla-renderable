@@ -20,7 +20,7 @@
          document (assoc document
                          :ns       nil  ; current namespace
                          :queued   #{} ; code segments that are qued for evaluation
-                         :active   (first segments))]
+                         :active   (:id (first segments)))]
      (debugf "Adding document: %s " doc-id)
      (assoc-in db [:docs doc-id] document))))
 
