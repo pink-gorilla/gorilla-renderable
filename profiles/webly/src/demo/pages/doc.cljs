@@ -7,6 +7,8 @@
    [demo.menu :refer [template-header-document menu]]
    ))
 
+;(rf/dispatch [:css/set-theme-component :codemirror "base16-light"])
+(rf/dispatch [:css/set-theme-component :codemirror "mdn-like"])
 (rf/dispatch [:doc/load data/document])
 
 (def opts

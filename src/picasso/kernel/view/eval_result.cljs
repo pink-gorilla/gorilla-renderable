@@ -29,5 +29,5 @@
      [:div.flex-grow-1 ""])])
 
 (defn eval-result-view [result]
-  [:div.w-full.h-full.bg-gray-200.flex.flex-col.flex-grow-1.eval-result ; .mt-2
+  [:div ; .w-full.h-full.bg-gray-200.flex.flex-col.flex-grow-1.eval-result ; .mt-2
    [eval-result-view-pure result]])

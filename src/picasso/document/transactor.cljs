@@ -81,7 +81,8 @@
        :remove-segment-active pos/remove-active-segment
        :insert-before pos/insert-before
        :insert-below pos/insert-below
-       :kernel-toggle-active k/kernel-toggle-active)
+       :kernel-toggle-active k/kernel-toggle-active
+       :kernel-toggle k/kernel-toggle)
 
 
 ;; compatibility

@@ -8,5 +8,5 @@
   [nb-settings {:keys [id state] :as seg}]
   (if state
     [eval-result-view state]
-    [:div "no eval result"]))
+    [:div.bg-blue-200.m-2.p-1.border.border-round.border-blue-800 "no result"]))
 

@@ -17,6 +17,11 @@
    (rf/dispatch [:doc/exec [:clear-all]])))
 
 (rf/reg-event-fx
+ :segment/kernel-toggle
+ (fn [_ [_ id]]
+   (rf/dispatch [:doc/exec [:kernel-toggle id]])))
+
+(rf/reg-event-fx
  :segment-active/kernel-toggle
  (fn [_ _]
    (rf/dispatch [:doc/exec [:kernel-toggle-active]])))

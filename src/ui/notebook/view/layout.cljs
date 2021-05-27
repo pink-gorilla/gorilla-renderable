@@ -18,12 +18,12 @@
     [segment-output nb-settings seg]]])
 
 (defn layout-single [nb-settings {:keys [id] :as seg}]
-  [:div.flex.flex-row.w-full.h-full.min-h-full.bg-yellow-400.items-stretch
+  [:div.flex.flex-row.w-full.h-full.min-h-full.items-stretch ; .bg-yellow-400
    [style-codemirror-fullscreen]
     ; LEFT: code-mirror / code-completion
-   [:div.bg-yellow-500.h-full.flex.flex-col {:class "w-1/2"}
+   [:div.bg-yellow-100.h-full.flex.flex-col {:class "w-1/2"}
     [segment-nav]
-    [:div.w-full.bg-red-300.flex-grow
+    [:div.w-full.bg-gray-200.flex-grow
       ;{:style {:height "600px"}}
      [segment-input nb-settings seg]]
     [:div.h-40.w-full.bg-teal-300
@@ -50,18 +50,16 @@
 
 
 (defn layout-stacked [nb-settings segments]
-  [:div.flex.flex-row.w-full.h-full.bg-yellow-400.stackednotebook.overflow-y-auto.max-h-full
-   [:div.stackedinput.overscroll-y-auto.overflow-y-scroll {:class "w-1/2"}
+  [:div.flex.flex-row.w-full.h-full.stackednotebook.overflow-y-auto.max-h-full
+   [:div.stackedinput.overscroll-y-auto.overflow-y-scroll {:class "w-1/2"} ; 
     [style-codemirror-inline]
     (for [seg segments]
       ^{:key (:id seg)}
       [segment-input nb-settings seg])]
-   [:div.stackedoutput.overscroll-y-auto.overflow-y-scroll {:class "w-1/2"}
+   [:div.stackedoutput.overscroll-y-auto.overflow-y-scroll {:class "w-1/2"} ; .bg-yellow-400
     (for [seg segments]
       ^{:key (:id seg)}
       [segment-output nb-settings seg])]])
-;; => nil
-
 
 (defn notebook-layout [{:keys [layout]
                         :or {layout :vertical}

@@ -1,7 +1,7 @@
 (ns picasso.document.index)
 
 (defn segment-ids-ordered [notebook]
-  (map :id notebook))
+  (map :id (:segments notebook)))
 
 ; order (vec (map :id segments))
 

@@ -14,15 +14,20 @@
                           (info "cm-text save")
                           (rf/dispatch [:doc/exec [:set-code-segment id text]]))
 
-             :cm-events (fn [cm-evt]
-                          (info "cm event " cm-evt))})
+             :cm-events (fn [[type & args]]
+                          (info "cm event type: " type " args: " args)
+                          ;[:cm/mouse-down 3 {"left" 33, "right" 33, "top" 333, "bottom" 351}
+                          (case type
+                            :cm/mouse-down (rf/dispatch [:notebook/move :to (first args)])
+                            :cm/move (rf/dispatch [:notebook/move (second args)])
+                            (warn "unhandled cm event: " type)))})
 
 (defn segment-code-edit [{:keys [active?] :as cm-opts} {:keys [id data] :as seg}]
   [:div {:style {:position "relative"}} ; container for kernel absolute position
    ; kernel - one color for both dark and light themes.
    (when-let [kernel (:kernel data)] ; snippets might not define kernel
-     [:span.pr-2.text-right.text-blue-600.tracking-wide.font-bold.border.border-blue-300.rounded
-      {:on-click #(rf/dispatch [:segment-active/kernel-toggle])
+     [:span.pr-2.text-right.text-blue-600.tracking-wide.font-bold.border.border-blue-300.rounded.cursor-pointer.hover:bg-red-700.m-1
+      {:on-click #(rf/dispatch [:segment/kernel-toggle id])
        :style {:position "absolute"
                :z-index 200 ; dialog is 1040 (we have to be lower)
                :top "2px" ; not too big, so it works for single-row code segments
