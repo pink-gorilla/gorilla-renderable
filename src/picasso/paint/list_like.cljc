@@ -18,5 +18,4 @@
   (let [{:keys [class open close separator items]} content]
     (box class open close
          (->> (map paint items)
-                ;(interpose [:span separator])
-              ))))
+              (interpose [:span separator])))))

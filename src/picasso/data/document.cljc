@@ -25,6 +25,11 @@
      :state {:id 15
              :picasso {:type :hiccup
                        :content [:span {:class "clj-long"} 13]}}}
+    {:id 4
+     :type :code
+     :data {:kernel :edn
+            :code "{:a 1 :b [7 8]}"}}
+
     {:id 3
      :type :code
      :data {:kernel :edn

@@ -1,6 +1,6 @@
 (ns picasso.kernel.edn
   (:require
-   [clojure.edn :refer [read-string]]
+   [clojure.edn :as edn]
    #?(:clj  [clojure.core.async :refer [>! chan close! go]]
       :cljs [cljs.core.async :refer [>! chan close!] :refer-macros [go]])
    [taoensso.timbre :as timbre :refer [debugf info error]]
@@ -12,14 +12,14 @@
                               :or {id (guuid)}}]
   (let [c (chan)]
     (info "edn-eval: " code)
-    (go (try (let [eval-results (read-string code)
-                   _ (info "eval result: " eval-results)
-                   picassos (->picasso eval-results)
-                   _ (info "picassos: " picassos)
+    (go (try (let [eval-result (edn/read-string code)
+                   _ (info "eval result: " eval-result)
+                   picasso (->picasso eval-result)
+                   _ (info "picasso: " picasso)
               ;(into [] (map ->picasso eval-results))
                    ]
                (>! c {:id id
-                      :picasso picassos}))
+                      :picasso picasso}))
 
              (catch #?(:cljs js/Error :clj Exception) e
                (error "eval ex: " e)

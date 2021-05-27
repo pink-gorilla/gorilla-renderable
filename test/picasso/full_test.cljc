@@ -28,6 +28,7 @@
           [:span.font-bold.teal-700.mr-1 "("]
           [:span.items
            [:span {:class "clj-keyword"} ":a"]
+           [:span " "]
            [:span {:class "clj-long"} "1"]]
           [:span.font-bold.teal-700.ml-1 ")"]])))
 
@@ -36,12 +37,9 @@
          [:span {:class "clj-map"}
           [:span.font-bold.teal-700.mr-1 "{"]
           [:span.items
-           [:span {:class "clj-vector"}
-            [:span.font-bold.teal-700.mr-1 "["]
-            [:span.items
-             [:span {:class "clj-keyword"} ":a"]
-             [:span {:class "clj-long"} "1"]]
-            [:span.font-bold.teal-700.ml-1 "]"]]]
+           [:span {:class "clj-keyword"} ":a"]
+           [:span " "]
+           [:span {:class "clj-long"} "1"]]
           [:span.font-bold.teal-700.ml-1 "}"]])))
 
 

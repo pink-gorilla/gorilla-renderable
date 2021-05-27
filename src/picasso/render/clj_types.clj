@@ -3,7 +3,7 @@
   (:require
    [picasso.protocols :refer [Renderable render]]
    [picasso.render.span :refer [span-render]]
-   [picasso.render.list-like :refer [list-like-render]]))
+   [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
 
 
 ;; Renderers for basic Clojure forms **
@@ -159,7 +159,7 @@
 (extend-type clojure.lang.IPersistentMap
   Renderable
   (render [self]
-    (list-like-render
+    (list-like-render-map
      {:class  "clj-map"
       :open "{"
       :close "}"
@@ -180,7 +180,7 @@
 (extend-type clojure.lang.IRecord
   Renderable
   (render [self]
-    (list-like-render
+    (list-like-render-map
      {:class  "clj-record"
       :open "{"
       :close "}"

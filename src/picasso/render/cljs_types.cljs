@@ -5,7 +5,7 @@
   (:require
    [picasso.protocols :refer [Renderable render]]
    [picasso.render.span :refer [span-render]]
-   [picasso.render.list-like :refer [list-like-render]]))
+   [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
 
 ;;; ** Renderers for basic Clojure forms **
 
@@ -57,11 +57,11 @@
 (extend-type cljs.core/PersistentArrayMap
   Renderable
   (render [self]
-    (list-like-render
+    (list-like-render-map
      {:class "clj-map"
       :open "{"
       :close  "}"
-      :separator  ","}
+      :separator  " "}
      self)))
 
 (extend-type cljs.core/MapEntry
@@ -71,7 +71,7 @@
      {:class "clj-vector"
       :open "["
       :close  "]"
-      :separator  " "}
+      :separator  ", "}
      self)))
 
 (extend-type cljs.core/LazySeq
