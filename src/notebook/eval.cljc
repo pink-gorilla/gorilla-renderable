@@ -1,11 +1,11 @@
-(ns picasso.document.eval
+(ns notebook.eval
   (:require
    [picasso.id :refer [guuid]]
    #?(:clj  [clojure.core.async :refer [<! go]]
       :cljs [cljs.core.async :refer [<!] :refer-macros [go]])
    [taoensso.timbre :refer [trace debug info error]]
    [picasso.kernel.protocol :refer [kernel-eval]]
-   [picasso.document.core :as edit]))
+   [notebook.core :as edit]))
 
 (defn eval-segment [exec {:keys [id data] :as seg}]
   (info "eval seg: " seg)

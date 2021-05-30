@@ -1,9 +1,9 @@
-(ns picasso.document.transactor
+(ns notebook.transactor
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
-   [picasso.document.core :as core]
-   [picasso.document.eval :as eval]
-   [picasso.document.transact :refer [fns-lookup transact]]))
+   [notebook.core :as core]
+   [notebook.eval :as eval]
+   [notebook.transact :refer [fns-lookup transact]]))
 
 (defonce doc (atom nil))
 

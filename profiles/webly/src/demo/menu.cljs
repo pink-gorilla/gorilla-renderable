@@ -1,7 +1,7 @@
 (ns demo.menu
   (:require
    [re-frame.core :as rf]
-   [picasso.data.document :as data]
+   [picasso.data.notebook :as data]
    [ui.notebook.menu]))
 
 (defn link-fn [fun text]
@@ -18,7 +18,9 @@
 (defn menu []
   [:div
    [link-href "/" "main"]
-   [link-dispatch [:doc/load data/document] "load"]
+   [link-dispatch [:doc/load data/notebook] "load"]
+   [link-dispatch [:notebook/template] "template"]
+   
 
    [link-dispatch [:notebook/move :to 1] "activate 1"]
    [link-dispatch [:notebook/move :to 8] "activate 8"]

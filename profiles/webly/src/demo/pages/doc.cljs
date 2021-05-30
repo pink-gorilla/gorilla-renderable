@@ -2,14 +2,14 @@
   (:require
    [re-frame.core :as rf]
    [webly.web.handler :refer [reagent-page]]
-   [picasso.data.document :as data] ; sample-data
+   [picasso.data.notebook :as data] ; sample-data
    [ui.notebook.core :refer [notebook-view]]
    [demo.menu :refer [template-header-document menu]]
    ))
 
 ;(rf/dispatch [:css/set-theme-component :codemirror "base16-light"])
 (rf/dispatch [:css/set-theme-component :codemirror "mdn-like"])
-(rf/dispatch [:doc/load data/document])
+(rf/dispatch [:doc/load data/notebook])
 
 (def opts
   {

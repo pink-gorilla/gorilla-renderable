@@ -1,10 +1,10 @@
 (ns demo.kernel
   (:require
    [clojure.core.async :refer [<! <!! go]]
-   [picasso.kernel.protocol :refer [kernel-eval]]
    [taoensso.timbre :as timbre :refer [debugf info error]]
-   ; side-effects
-   [picasso.default-config]))
+   [picasso.default-config] ; side-effects
+   [picasso.kernel.protocol :refer [kernel-eval]]
+   ))
 
 (defn eval-clj [code]
   (go

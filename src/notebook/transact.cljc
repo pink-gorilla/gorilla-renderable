@@ -1,7 +1,7 @@
-(ns picasso.document.transact
+(ns notebook.transact
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
-   [picasso.document.core :as edit]))
+   [notebook.core :as edit]))
 
 (defonce fns-lookup
   (atom {:set-meta-key edit/set-meta-key

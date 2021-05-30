@@ -1,6 +1,6 @@
-(ns picasso.data.document)
+(ns picasso.data.notebook)
 
-(def document
+(def notebook
   {:meta {:id :7c9ab23f-c32f-4879-b74c-de7835ca8ba4
           :title "demo 123"
           :tags #{:demo :simple}}

@@ -1,4 +1,4 @@
-(ns picasso.document.core
+(ns notebook.core
   (:require
    [picasso.id :refer [guuid]]
    [com.rpl.specter :as s]))

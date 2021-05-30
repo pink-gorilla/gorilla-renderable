@@ -2,7 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [re-frame.core :refer [subscribe dispatch]]
-   [picasso.document.index :refer [segment-ids-ordered]]))
+   [notebook.index :refer [segment-ids-ordered]]))
 
 (defn icon [active-segment-id current-segment-id]
   (let [active? (= active-segment-id current-segment-id)]

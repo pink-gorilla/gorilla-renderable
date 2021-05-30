@@ -1,9 +1,9 @@
-(ns picasso.document.kernel
+(ns notebook.kernel
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
    [picasso.kernel.protocol :refer [available-kernels]]
-   [picasso.document.core :refer [get-segment set-kernel-segment]]
-   [picasso.document.position :as pos]))
+   [notebook.core :refer [get-segment set-kernel-segment]]
+   [notebook.position :as pos]))
 
 (defn toggle [active available]
   (let [v-indexed (map-indexed (fn [idx id] [idx id]) available)

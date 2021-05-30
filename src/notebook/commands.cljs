@@ -1,4 +1,4 @@
-(ns picasso.document.commands
+(ns notebook.commands
   (:require
    [taoensso.timbre :as timbre :refer [debug debugf info error]]
    [re-frame.core :as rf]))

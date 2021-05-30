@@ -1,13 +1,13 @@
-(ns picasso.document.transactor
+(ns notebook.transactor
   (:require
    [taoensso.timbre :as timbre :refer [debug debugf info error]]
    [re-frame.core :as rf]
-   [picasso.document.eval :as eval]
-   [picasso.document.transact :refer [fns-lookup transact]]
-   [picasso.document.position :as pos]
-   [picasso.document.core :as nb]
-   [picasso.document.kernel :as k]
-   [picasso.document.commands]))
+   [notebook.eval :as eval]
+   [notebook.transact :refer [fns-lookup transact]]
+   [notebook.position :as pos]
+   [notebook.core :as nb]
+   [notebook.kernel :as k]
+   [notebook.commands]))
 
 (rf/reg-event-db
  :doc/add

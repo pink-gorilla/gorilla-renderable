@@ -1,8 +1,8 @@
-(ns picasso.document.position
+(ns notebook.position
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
    [re-frame.core :as rf]
-   [picasso.document.core :as nb]
+   [notebook.core :as nb]
    [com.rpl.specter :as s]))
 
 (defn active-segment-id [notebook]

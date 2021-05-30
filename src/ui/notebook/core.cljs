@@ -4,8 +4,8 @@
    ; side-effects
    [picasso.kernel.view.picasso :refer [picasso-result]]
    [picasso.kernel.view.default-painter] ; side-effects
-   [picasso.document.transactor] ;side-effects
-   [picasso.document.position :refer [segment-active]] ;side-effects
+   [notebook.transactor] ;side-effects
+   [notebook.position :refer [segment-active]] ;side-effects
    ; ui
    [ui.markdown.goldly.core] ;side-effects
    [ui.code.goldly.core] ;side-effects

@@ -3,8 +3,8 @@
    [clojure.edn :as edn]
    [clojure.core.async :refer [<! <!! >! chan close! go timeout]]
    [taoensso.timbre :as timbre :refer [debugf info error]]
-   [picasso.document.transactor :refer [exec notebook]]
    [picasso.default-config] ; side-effects
+   [notebook.transactor :refer [exec notebook]]
    )
   (:gen-class))
 
