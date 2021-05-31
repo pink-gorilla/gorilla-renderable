@@ -30,6 +30,27 @@
      :data {:kernel :edn
             :code "{:a 1 :b [7 8]}"}}
 
+    {:id 99
+     :type :code
+     :data {:kernel :clj
+            :code "(clock-svg 12 15)"}
+     :state {:ns "user"
+             :out ""
+             :err []
+             :root-ex nil
+             ;:datafy "{:idx 2, :value [:sv … ]], :meta {:R true}}"
+             ;:value ["[:svg {:height 100, … , :stroke-width 3}]]"]
+             :picasso {:type :reagent
+                       :content {:hiccup [:svg
+                                          {:height 100, :width 100}
+                                          [:circle {:cx 50, :cy 50, :r 40, :stroke "black", :stroke-width 4}]
+                                          [:line {:x1 50, :y1 50
+                                                  :x2 51.15193713515706, :y2 20.022124144018374
+                                                  :stroke "red", :stroke-width 4}]
+                                          [:line {:x1 50, :y1 50
+                                                  :x2 84.99999999976387, :y2 49.99987143782138
+                                                  :stroke "black", :stroke-width 4}]]}}}}
+
     {:id 3
      :type :code
      :data {:kernel :edn

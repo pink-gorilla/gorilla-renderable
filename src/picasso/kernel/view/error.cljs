@@ -17,10 +17,25 @@
 
 (def view (partial helpers/view styles))
 
+(defn err-text? [err]
+  (if (nil? err)
+    false
+    (string? err)))
+
+(defn err-vec? [err]
+  (if (nil? err)
+    false
+    (and (vector? err) (not (empty? err)))))
+
 (defn error-text [err root-ex]
-  (when (or err root-ex)
-    [view :error-text
-     (when err
-       [text err])
-     (when root-ex
-       [text root-ex])]))
+  (let [err-vec (err-vec? err)
+        err-text (err-text? err)]
+    (when (or err-text err-vec root-ex)
+      [view :error-text
+       (when err-text
+         [text err])
+       (when err-vec
+         nil ; todo - when does this happen¿
+         )
+       (when root-ex
+         [text root-ex])])))
