@@ -3,7 +3,8 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [re-frame.core :as rf]
    [ui.markdown.viewer :refer [markdown-viewer]]
-   [ui.markdown.prosemirror :as prosemirror]))
+   [ui.markdown.prosemirror :as prosemirror]
+   [ui.notebook.view.segment-menu :refer [cell-menu]]))
 
 (def pm-fun {:get-data (fn [id]
                          (let [s (rf/subscribe [:notebook/segment id])]
@@ -28,10 +29,11 @@
   (let [segment-active (rf/subscribe [:notebook/segment-active])]
     (fn [nb-settings {:keys [id] :as seg}]
       (let [active? (= (:id @segment-active) id)]
-        [:div {;:class  (str "segment md"
+        [:div ;{;:class  (str "segment md"
                ;             (if active? " selected" ""))
-               :on-click #(rf/dispatch [:notebook/move :to id])}
+               ;:on-click #(rf/dispatch [:notebook/move :to id])}
          (if active?
-           [md-segment-edit seg active?]
+           [:<> [md-segment-edit seg active?]
+            [cell-menu seg]]
            [md-segment-view seg active?])]))))
 

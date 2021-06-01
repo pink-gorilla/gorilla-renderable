@@ -25,6 +25,9 @@
    [link-dispatch [:segment-active/eval] "eval active "]
    [link-dispatch [:segment/new-above] "new above"]
    [link-dispatch [:segment/new-below] "new below"]
+   [link-dispatch [:segment-active/delete] "delete active"]
+   
+
    [ui.notebook.menu/menu]
    ])
 

@@ -3,6 +3,19 @@
    [picasso.id :refer [guuid]]
    [com.rpl.specter :as s]))
 
+; helper fns
+
+(defn seg-with-id [target-id {:keys [id] :as segment}]
+  (= id target-id))
+
+(defn seg-with-type [target-type {:keys [type] :as segment}]
+  (= type target-type))
+
+(defn seg-code [{:keys [type] :as segment}]
+  (= type :code))
+
+; notebook
+
 (defn new-notebook []
   {:meta {:id (guuid)}
    :segments []})
@@ -37,6 +50,12 @@
 (defn add-code [doc kernel code]
   (->> (code-segment kernel code) (add-segment doc)))
 
+(defn clear-segment [doc id]
+  (s/setval
+   [:segments (s/filterer (partial seg-with-id id)) s/ALL :state]
+   {} ; s/NONE
+   doc))
+
 (defn clear-all [{:keys [segments] :as doc}]
   (->> (map #(assoc % :state {}) segments)
        (into [])
@@ -44,24 +63,10 @@
 
 ;(defn update-segment-state [{:keys [segments] :as doc} seg-id])
 
-(defn seg-with-id [target-id {:keys [id] :as segment}]
-  (= id target-id))
-
-(defn seg-with-type [target-type {:keys [type] :as segment}]
-  (= type target-type))
-
-(defn seg-code [{:keys [type] :as segment}]
-  (= type :code))
 
 (defn remove-segment [doc id]
   (s/transform
    [:segments (s/filterer (partial seg-with-id id))]
-   s/NONE
-   doc))
-
-(defn clear-segment [doc id]
-  (s/transform
-   [:segments (s/filterer (partial seg-with-id id)) s/ALL :state]
    s/NONE
    doc))
 
@@ -100,13 +105,16 @@
    state
    doc))
 
-#_(defn toggle-view-segment
-    [{:keys [id type] :as segment}]
-    (let [segment (if (= type :code)
-                    (create-md-segment (:code segment))
-                    (create-code-segment (:md segment)))]
-      (-> segment
-          (assoc :id id))))
+(defn toggle-type-segment
+  [doc {:keys [id type] :as segment}]
+  (let [segment (if (= type :code)
+                  (md-segment (get-in  segment [:data :code]))
+                  (code-segment :clj (:data segment)))
+        segment (assoc segment :id id)]
+    (s/setval
+     [:segments (s/filterer (partial seg-with-id id)) s/ALL]
+     segment
+     doc)))
 
 (comment
 
@@ -123,6 +131,23 @@
   (set-state-segment picasso.data.document/document 2 {:picasso [:p 7]})
   (s/transform [:segments (s/filterer (partial seg-with-id 2))] s/NONE
                picasso.data.document/document)
+
+  (s/setval [s/INDEXED-VALS s/FIRST] 1 [5 6 7 8 9])
+
+  (s/select [s/INDEXED-VALS ;s/FIRST 
+             (s/filterer (fn [k] (= k 3)))
+           ;s/FIRST 
+             ]
+            [5 6 7 8 9])
+
+  (s/setval [s/INDEXED-VALS
+           ;s/FIRST 
+             (s/filterer (fn [k] (= k 2)))
+             s/FIRST]
+            3
+            [5 6 7 8 9])
+
+  (s/setval (s/index-nav 2) 0 [1 2 3 4 5])
 
   ;
   )

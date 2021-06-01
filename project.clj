@@ -32,7 +32,7 @@
              :webly {:dependencies [[org.pinkgorilla/webly "0.2.43"]
                                     [org.pinkgorilla/pinkie "0.3.3"] 
                                     [org.pinkgorilla/ui-markdown "0.0.8"]
-                                    [org.pinkgorilla/ui-code "0.0.9"]
+                                    [org.pinkgorilla/ui-code "0.0.11"]
                                     ]
                      :source-paths ["profiles/webly/src"]
                      :resource-paths  [;"target/webly"

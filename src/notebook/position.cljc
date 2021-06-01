@@ -1,7 +1,6 @@
 (ns notebook.position
   (:require
    [taoensso.timbre :as timbre :refer [debugf info error]]
-   [re-frame.core :as rf]
    [notebook.core :as nb]
    [com.rpl.specter :as s]))
 
@@ -72,9 +71,8 @@
                        :down (min (+ current-idx 1) (- (count segments) 1))
                        :up (max 0 (- current-idx 1)))
         ;_ (info "idx-target: " idx-target)
-          ]
-      (info "new current: " (get lookup idx-target))
-      (get lookup idx-target))
+          id-new (get lookup idx-target)]
+      id-new)
     (do (error "cannot move-up-down: no active segment")
         nil)))
 (defn move [doc direction & [id]]
@@ -84,21 +82,58 @@
                     :first (first (:segments doc))
                     :last (last (:segments doc))
                     :to id)]
+    (info "new current segment: " active-id)
     (assoc doc :active active-id)))
 
-(rf/reg-sub
- :notebook/segment-active
- :<- [:notebook/current]
- (fn [notebook _]
-   (segment-active notebook)))
+
 
 ; commands
 
-(rf/reg-event-db
- :segment-active/delete
- (fn [db _]
-   (info "delete active segmentl")
-   (rf/dispatch [:doc/exec [:remove-segment-active]])
-   db))
 
+(defn clear-segment-active [doc]
+  (if-let [id (active-segment-id doc)]
+    (nb/clear-segment doc id)
+    (do
+      (error "no active segment to clear")
+      doc)))
 
+(defn toggle-type-segment-active [doc]
+  (if-let [id (active-segment-id doc)]
+    (if-let [seg (nb/get-segment doc id)]
+      (nb/toggle-type-segment doc seg)
+      (do
+        (error "no active segment to type toggle")
+        doc))
+    (do
+      (error "no active segment to type toggle")
+      doc)))
+
+(defn move-active-segment-up [doc]
+  (let [active-id (:active doc)
+        active-idx (when active-id (segment-index doc  active-id))
+        new-index (max 0 (dec active-idx))]
+    (info "move-active-segment-up id:" active-id "idx: " active-idx "new-idx:" new-index)
+    (if active-idx
+      (s/setval [:segments (s/index-nav active-idx)] new-index doc)
+      doc)))
+
+(defn move-active-segment-down [doc]
+  (let [active-id (:active doc)
+        active-idx (when active-id (segment-index doc  active-id))
+        new-index (min (dec (count (:segments doc))) (inc active-idx))]
+    (info "move-active-segment-up id:" active-id "idx: " active-idx "new-idx:" new-index)
+    (if active-idx
+      (s/setval [:segments (s/index-nav active-idx)] new-index doc)
+      doc)))
+
+(comment
+
+  (require '[picasso.data.notebook])
+
+  picasso.data.notebook/notebook
+  (def doc (assoc picasso.data.notebook/notebook :active 5))
+
+  (move-active-segment-up doc)
+  (move-active-segment-down doc)
+ ; 
+  )

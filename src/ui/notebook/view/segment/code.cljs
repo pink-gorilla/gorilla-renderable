@@ -2,6 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [re-frame.core :as rf]
+   [ui.notebook.view.segment-menu :refer [cell-menu]]
    [ui.code.goldly.codemirror-themed  :refer [codemirror-themed]]))
 
 (def cm-fun {:get-data (fn [id]
@@ -41,8 +42,7 @@
 (defn segment-code [{:keys [view-only] :as nb-settings} {:keys [id type] :as seg}]
   (let [settings (rf/subscribe [:settings])
         segment-active (rf/subscribe [:notebook/segment-active])
-        segment-queued (rf/subscribe [:segment/queued? id])
-        cm-md-edit? (rf/subscribe [:notebook/edit?])]
+        segment-queued (rf/subscribe [:segment/queued? id])]
     (fn [{:keys [view-only] :as nb-settings} {:keys [id type] :as seg}]
       (let [active? (= (:id @segment-active) id)
             queued? @segment-queued
@@ -53,11 +53,13 @@
 
         [:div.text-left.bg-gray-100 ; .border-solid
          {:id id
-          :on-click #(do
-                       (rf/dispatch [:notebook/move :to id]))
+          ;:on-click #(do
+          ;             (rf/dispatch [:notebook/move :to id]))
           :class (str (when queued?                         " border border-solid border-green-800")
-                      (when (and active? cm-md-edit?)       " border border-solid border-red-600")
-                      (when (and active? (not cm-md-edit?)) " border border-solid border-gray-600")
+                      (when (and active? (not view-only))       " border border-solid border-red-600")
+                      (when (and active? view-only) " border border-solid border-gray-600")
                       (when full? " h-full"))}
 
-         [segment-code-edit cm-opts seg]]))))
+         [segment-code-edit cm-opts seg]
+         ;[:p "view-only: " (str view-only) "  active: " (str active?)]
+         (when active? [cell-menu seg])]))))

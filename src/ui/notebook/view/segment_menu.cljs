@@ -1,38 +1,42 @@
 (ns ui.notebook.view.segment-menu
   (:require
-   [re-frame.core :refer [dispatch]]))
+   [re-frame.core :as rf]))
+
+(defn link-fn [fun text]
+  [:a.bg-blue-300.cursor-pointer.hover:bg-red-700.m-1
+   {:on-click fun} text])
+
+(defn link-dispatch [rf-evt text]
+  (link-fn #(rf/dispatch rf-evt) text))
+
+(defn fa-dispatch [fa d]
+  [:a {:class    [:lg:inline-block :lg:mt-0]
+       :on-click #(rf/dispatch d)}
+   [:i {:class fa}]])
 
 (defn cell-menu [segment]
   [:div {:class [:font-sans :flex :flex-col :text-center :sm:flex-row :sm:text-left :sm:justify-between :px-6 :bg-white :sm:items-baseline :w-full]}
 
-   ;; Kernel switch (clj/cljs)
    [:div.mb-1
-    [:a {:class [:text-lg :p-1 :pg-kernel-toggle]
-         :on-click #(dispatch [:segment-active/kernel-toggle])}
-     (:kernel @segment)]]
+    [link-dispatch [:segment/new-above] "insert above"]
+    [link-dispatch [:segment/new-below] "insert below"]
+    [link-dispatch [:segment-active/delete] "delete"]
+    [link-dispatch [:segment/type-toggle] "toggle editor"]
 
-   [:div.mt-1.mb-1.h-8
+    [fa-dispatch [:fas :fa-arrow-circle-down] [:segment/move-pos-down]]
+    [fa-dispatch [:fas :fa-arrow-circle-up] [:segment/move-pos-up]]]
+
+   (when (= (:type segment) :code)
+     [:div.mt-1.mb-1.h-8
    ;[:p {:class "text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"} "One" ]
-
-    [:a {:class [:pg-cell-actions :lg:inline]
-         :on-click #(do
-                      (dispatch [:segment/evaluate])
-                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                      )}
-     "Evaluate"]
-
-    [:a {:class [:pg-cell-actions :lg:inline]
-         :on-click #(do
-                      (dispatch [:segment/clear])
-                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                      )}
-     "Clear Output"]]
+      [link-dispatch [:segment-active/eval] "Evaluate"]
+      [link-dispatch [:segment/clear] "Clear Output"]])
 
    ;; Move Segment around.
    [:div.text-lg
     [:a {:class    [:pg-cell-move :lg:inline-block :lg:mt-0]
-         :on-click #(dispatch [:notebook/move :up])}
+         :on-click #(rf/dispatch [:notebook/move :up])}
      [:i.fas.fa-arrow-circle-up]]
     [:a {:class    [:pg-cell-move :lg:inline-block :lg:mt-0]
-         :on-click #(dispatch [:notebook/move :down])}
+         :on-click #(rf/dispatch [:notebook/move :down])}
      [:i.fas.fa-arrow-circle-down]]]])

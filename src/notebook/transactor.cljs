@@ -83,9 +83,14 @@
        :insert-before pos/insert-before
        :insert-below pos/insert-below
        :kernel-toggle-active k/kernel-toggle-active
-       :kernel-toggle k/kernel-toggle)
+       :kernel-toggle k/kernel-toggle
+       :clear-segment-active pos/clear-segment-active
+       :toggle-type-segment-active  pos/toggle-type-segment-active
+       :move-active-segment-down pos/move-active-segment-down
+       :move-active-segment-up pos/move-active-segment-up)
 
 ;; compatibility
+
 
 (rf/reg-sub
  :document/current
@@ -97,11 +102,6 @@
  (fn [db _]
    (let [id (:doc-active db)]
      (get-in db [:docs id]))))
-
-(rf/reg-sub
- :notebook/edit?
- (fn [db [_]]
-   (or (:notebook/edit? db) false)))
 
 (rf/reg-sub
  :notebook/segment

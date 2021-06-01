@@ -1,9 +1,11 @@
 (ns notebook.commands
   (:require
    [taoensso.timbre :as timbre :refer [debug debugf info error]]
-   [re-frame.core :as rf]))
+   [re-frame.core :as rf]
+   [notebook.position :as pos]))
 
 ; shorter keybindings for notebook
+
 
 (rf/reg-event-fx
  :notebook/evaluate-all
@@ -53,11 +55,42 @@
  (fn [_ [_]]
    (rf/dispatch [:doc/exec [:insert-below]])))
 
+(rf/reg-event-fx
+ :segment-active/delete
+ (fn [_ _]
+   (info "delete active segmentl")
+   (rf/dispatch [:doc/exec [:remove-segment-active]])))
+
 ; position
 
-(rf/reg-event-db
- :notebook/move
- (fn [db [_ direction id]]
-   (rf/dispatch [:doc/exec [:move direction id]])
-   db))
 
+(rf/reg-event-fx
+ :notebook/move
+ (fn [_ [_ direction id]]
+   (rf/dispatch [:doc/exec [:move direction id]])))
+
+(rf/reg-event-fx
+ :segment/clear
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:clear-segment-active]])))
+
+(rf/reg-event-fx
+ :segment/type-toggle
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:toggle-type-segment-active]])))
+
+(rf/reg-event-fx
+ :segment/move-pos-down
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:move-active-segment-down]])))
+
+(rf/reg-event-fx
+ :segment/move-pos-up
+ (fn [_ [_]]
+   (rf/dispatch [:doc/exec [:move-active-segment-up]])))
+
+(rf/reg-sub
+ :notebook/segment-active
+ :<- [:notebook/current]
+ (fn [notebook _]
+   (pos/segment-active notebook)))
