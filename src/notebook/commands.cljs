@@ -36,7 +36,7 @@
 (rf/reg-event-fx
  :segment-active/eval
  (fn [_ _]
-   (rf/dispatch [:doc/exec [:kernel-toggle-active]])))
+   (rf/dispatch [:doc/exec [:eval-segment-active]])))
 
 (rf/reg-event-fx
  :segment/add

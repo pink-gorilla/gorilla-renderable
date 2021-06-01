@@ -19,7 +19,6 @@
               (assoc db :docs {}))
          document (assoc document
                          :ns       nil  ; current namespace
-                         :queued   #{} ; code segments that are qued for evaluation
                          :active   (:id (first segments)))]
      (debugf "Adding document: %s " doc-id)
      (assoc-in db [:docs doc-id] document))))
@@ -78,6 +77,7 @@
        ;              (assoc-in doc [:active] id))
        :eval-all (partial eval/eval-all exec)
        :eval-segment (partial eval/eval-segment-id exec)
+       :eval-segment-active (partial eval/eval-segment-active exec)
        :move pos/move
        :remove-segment-active pos/remove-active-segment
        :insert-before pos/insert-before

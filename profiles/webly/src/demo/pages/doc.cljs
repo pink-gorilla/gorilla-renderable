@@ -4,7 +4,7 @@
    [webly.web.handler :refer [reagent-page]]
    [picasso.data.notebook :as data] ; sample-data
    [ui.notebook.core :refer [notebook-view]]
-   [demo.menu :refer [template-header-document menu]]
+   [demo.site :refer [template-header-document menu]]
    ))
 
 ;(rf/dispatch [:css/set-theme-component :codemirror "base16-light"])

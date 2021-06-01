@@ -9,28 +9,28 @@
      :type :md
      :data "# hello, world\n- iii\n- ooo"
      :state nil}
-    {:id 7
+    {:id 2
      :type :code
      :data {:kernel :clj
             :code "(+ 7 7)"}
      :state nil}
-    {:id 8
+    {:id 3
      :type :md
      :data "# edn kernel evals\nyes -edn for testing!"
      :state nil}
-    {:id 2
+    {:id 4
      :type :code
      :data {:kernel :edn
             :code "13"}
      :state {:id 15
              :picasso {:type :hiccup
                        :content [:span {:class "clj-long"} 13]}}}
-    {:id 4
+    {:id 5
      :type :code
      :data {:kernel :edn
             :code "{:a 1 :b [7 8]}"}}
 
-    {:id 99
+    {:id 6
      :type :code
      :data {:kernel :clj
             :code "(clock-svg 12 15)"}
@@ -51,7 +51,23 @@
                                                   :x2 84.99999999976387, :y2 49.99987143782138
                                                   :stroke "black", :stroke-width 4}]]}}}}
 
-    {:id 3
+    {:id 7
+     :type :md,
+     :data "# Welcome to PinkGorilla Notebook↵
+↵
+## Features↵
+↵
+* clojure evals (via nrepl)↵
+↵
+* clojurescript evals (via goldly and sci)↵
+↵
+* ui visualizations↵
+↵
+* dynamically add new custom ui vizualisations↵
+↵
+* save notebooks to file /github gist or github rep, :id :1a1f36af-dea8-4e5b-8a0a-c91d33a224d9}"}
+
+    {:id 8
      :type :code
      :data {:kernel :edn
             :code "[7 8]"}

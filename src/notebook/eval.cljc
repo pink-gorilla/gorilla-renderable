@@ -6,7 +6,8 @@
    [taoensso.timbre :refer [trace debug info error]]
    #?(:cljs [re-frame.core :as rf])
    [picasso.kernel.protocol :refer [kernel-eval]]
-   [notebook.core :as edit]))
+   [notebook.core :as edit]
+   [notebook.position :as pos]))
 
 (defn eval-segment [exec {:keys [id data] :as seg}]
   (info "eval seg: " seg)
@@ -18,11 +19,19 @@
           (info "eval-result id: " id "er: " er)
           (exec [:set-state-segment id er])))))
 
-(defn eval-segment-id [run {:keys [segments] :as doc} id]
+(defn eval-segment-id [exec {:keys [segments] :as doc} id]
   (if-let [seg (edit/get-segment doc id)]
-    (eval-segment run seg)
-    (error "segment not found"))
+    (eval-segment exec seg)
+    (error "segment not found: " id))
   doc)
+
+(defn eval-segment-active [exec doc]
+  (if-let [id (pos/active-segment-id doc)]
+    (eval-segment-id exec doc id)
+    (error "no active segment to evaluate"))
+  doc)
+
+; notify of queued segments
 
 #?(:cljs
    (rf/reg-event-db

@@ -1,4 +1,4 @@
-(ns demo.menu
+(ns demo.site
   (:require
    [re-frame.core :as rf]
    [picasso.data.notebook :as data]
@@ -20,19 +20,12 @@
    [link-href "/" "main"]
    [link-dispatch [:doc/load data/notebook] "load"]
    [link-dispatch [:notebook/template] "template"]
-   
-
    [link-dispatch [:notebook/move :to 1] "activate 1"]
    [link-dispatch [:notebook/move :to 8] "activate 8"]
-
+   [link-dispatch [:segment-active/eval] "eval active "]
    [link-dispatch [:segment/new-above] "new above"]
    [link-dispatch [:segment/new-below] "new below"]
-
    [ui.notebook.menu/menu]
-
-   ;[:span [link-dispatch [:doc/exec [:clear-all]] "clear all"]]
-   ;[:span [link-dispatch [:doc/exec [:eval-all]] "eval all"]]
-   ;[:span [link-dispatch [:notebook/layout-toggle] "layout"]]
    ])
 
 (defn template-header-document [header document]
