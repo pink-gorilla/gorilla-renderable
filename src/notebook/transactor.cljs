@@ -78,15 +78,14 @@
        ;              (assoc-in doc [:active] id))
        :eval-all (partial eval/eval-all exec)
        :eval-segment (partial eval/eval-segment-id exec)
+       :move pos/move
        :remove-segment-active pos/remove-active-segment
        :insert-before pos/insert-before
        :insert-below pos/insert-below
        :kernel-toggle-active k/kernel-toggle-active
        :kernel-toggle k/kernel-toggle)
 
-
 ;; compatibility
-
 
 (rf/reg-sub
  :document/current
@@ -94,29 +93,10 @@
    (:doc-active db)))
 
 (rf/reg-sub
- :notebook
+ :notebook/current
  (fn [db _]
    (let [id (:doc-active db)]
      (get-in db [:docs id]))))
-
-(rf/reg-sub
- :notebook/queued
- (fn [db _]
-   []))
-
-#_(reg-sub
-   :notebook/queued  ; all queued segments in current notebook
-   :<- [:notebook]
-   (fn [notebook _]
-     (get-in notebook [:queued])))
-
-(rf/reg-sub
- :segment/queued? ; is seg-id queued ?
- (fn [_ seg-id]
-   [(rf/subscribe [:notebook/queued])]) ; reuse subscription :notebook/queued
- (fn [[queued] [_ seg-id]]
-   ;(info "queued: " queued)
-   (some #(= seg-id %) queued)))
 
 (rf/reg-sub
  :notebook/edit?
@@ -125,13 +105,26 @@
 
 (rf/reg-sub
  :notebook/segment
- :<- [:notebook]
+ :<- [:notebook/current]
  (fn [notebook [_ seg-id]]
    (debug "sub seg-id: " seg-id)
    (nb/get-segment notebook seg-id)))
 
+; queued
 
-
+(rf/reg-sub
+ :segment/queued? ; is seg-id queued ?
+ (fn [db [_ seg-id]]
+   (when-let [id (:doc-active db)]
+     (when-let [seg-trans (get-in db [:transactor/queued])]
+       ;(info "** trans id: " seg-trans)
+       (when-let [doc (get-in db [:docs id])]
+         (when-let [idx-trans (pos/segment-index doc seg-trans)]
+           ;(info "** trans id: " seg-trans "idx: " idx-trans)
+           (when-let [idx-seg (pos/segment-index doc seg-id)]
+             ;(info "** seg-id: " seg-id "idx: " idx-seg)
+             ;(info "queued: idx-seg" idx-seg "idx-trans:" idx-trans)
+             (> idx-seg idx-trans))))))))
 
 
 

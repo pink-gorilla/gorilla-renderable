@@ -1,6 +1,6 @@
 (ns notebook.transact
   (:require
-   [taoensso.timbre :as timbre :refer [debugf info error]]
+   [taoensso.timbre :as timbre :refer [debug debugf info error]]
    [notebook.core :as edit]))
 
 (defonce fns-lookup
@@ -23,9 +23,9 @@
                    fun-kw
                    :custom-function)]
       (if args
-        (do (info "transact fun " fun-kw "args: " args)
+        (do (debug "transact fun " fun-kw "args: " args)
             (apply fun doc args))
-        (do (info "transact fun " fun-kw "no args")
+        (do (debug "transact fun " fun-kw "no args")
             (fun doc))))
     (do (error "transact fn not found:" fun-kw)
         doc)))

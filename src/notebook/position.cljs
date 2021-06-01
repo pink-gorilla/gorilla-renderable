@@ -34,9 +34,12 @@
 (defn position [pred coll]
   (first (positions pred coll)))
 
+(defn segment-index [doc seg-id]
+  (first (positions #(= seg-id (:id %)) (:segments doc))))
+
 (defn insert-before [doc]
   (let [active-id (:active doc)
-        active-idx (when active-id (position #(= active-id (:id %)) (:segments doc)))]
+        active-idx (when active-id (segment-index doc  active-id))]
     (info "insert-before id:" active-id "pos: " active-idx)
     (if active-idx
       (nb/insert-before doc active-idx (nb/code-segment :clj ""))
@@ -44,7 +47,7 @@
 
 (defn insert-below [doc]
   (let [active-id (:active doc)
-        active-idx (when active-id (position #(= active-id (:id %)) (:segments doc)))]
+        active-idx (when active-id (segment-index doc  active-id))]
     (info "insert-below id:" active-id "pos: " active-idx)
     (if active-idx
       (nb/insert-before doc (inc active-idx) (nb/code-segment :clj ""))
@@ -74,26 +77,18 @@
       (get lookup idx-target))
     (do (error "cannot move-up-down: no active segment")
         nil)))
-
-(rf/reg-event-db
- :notebook/move
- (fn [db [_ direction id]]
-   (let [fun (case direction
-               :up #(move-up-down  %  direction)
-               :down #(move-up-down  %  direction)
-               :first #(first (:segments %))
-               :last #(last (:segments %))
-               :to (fn [_] id))
-         assoc-active (fn [doc]
-                        (assoc doc :active (fun doc)))]
-     ;(dispatch [:notebook/scroll-to])
-     (if fun
-       (rf/dispatch [:doc/exec [assoc-active]])
-       db))))
+(defn move [doc direction & [id]]
+  (let [active-id (case direction
+                    :up (move-up-down doc direction)
+                    :down (move-up-down doc direction)
+                    :first (first (:segments doc))
+                    :last (last (:segments doc))
+                    :to id)]
+    (assoc doc :active active-id)))
 
 (rf/reg-sub
  :notebook/segment-active
- :<- [:notebook]
+ :<- [:notebook/current]
  (fn [notebook _]
    (segment-active notebook)))
 

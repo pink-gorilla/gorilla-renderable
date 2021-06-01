@@ -13,6 +13,7 @@
                    [#{"org.eclipse.jetty.*"} :info]
                    [#{"picasso.*"} :info]
                    [#{"ui.notebook.*"} :info]
+                   [#{"notebook.*"} :info]
                    [#{"*"} :debug]]
 
  :settings {:use-localstorage  true  ; allow user to change settings via localstorage

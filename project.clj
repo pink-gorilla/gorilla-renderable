@@ -29,13 +29,13 @@
 
   :profiles {:demo {:source-paths ["profiles/demo/src"]}  
             
-             :webly {:dependencies [[org.pinkgorilla/webly "0.2.41"]
+             :webly {:dependencies [[org.pinkgorilla/webly "0.2.43"]
                                     [org.pinkgorilla/pinkie "0.3.3"] 
                                     [org.pinkgorilla/ui-markdown "0.0.8"]
                                     [org.pinkgorilla/ui-code "0.0.9"]
                                     ]
                      :source-paths ["profiles/webly/src"]
-                     :resource-paths  ["target/webly"
+                     :resource-paths  [;"target/webly"
                                        "profiles/webly/resources"]}
 
              :dev {:dependencies [[clj-kondo "2021.04.23"]]

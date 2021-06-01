@@ -7,11 +7,11 @@
 (def cm-fun {:get-data (fn [id]
                          (let [s (rf/subscribe [:notebook/segment id])]
                            (if s
-                             (do (info "cm sub id: " id  "is: " @s)
+                             (do (debug "cm sub id: " id  "is: " @s)
                                  (or (get-in @s [:data :code]) "xxx sub was empty"))
                              "empty code")))
              :save-data (fn [id text]
-                          (info "cm-text save")
+                          (debug "cm-text save")
                           (rf/dispatch [:doc/exec [:set-code-segment id text]]))
 
              :cm-events (fn [[type & args]]
@@ -55,12 +55,9 @@
          {:id id
           :on-click #(do
                        (rf/dispatch [:notebook/move :to id]))
-          :class (str (if queued?
-                        "border border-solid border-blue-600"
-                        (if active?
-                          (if cm-md-edit? "border border-solid border-red-600"
-                              "border border-solid border-gray-600")
-                          ""))
-                      (if full? " h-full" ""))}
+          :class (str (when queued?                         " border border-solid border-green-800")
+                      (when (and active? cm-md-edit?)       " border border-solid border-red-600")
+                      (when (and active? (not cm-md-edit?)) " border border-solid border-gray-600")
+                      (when full? " h-full"))}
 
          [segment-code-edit cm-opts seg]]))))

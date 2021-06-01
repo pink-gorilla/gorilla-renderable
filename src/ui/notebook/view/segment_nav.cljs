@@ -12,7 +12,7 @@
        {:on-click #(dispatch [:notebook/move :to current-segment-id])}])))
 
 (defn segment-nav []
-  (let [notebook (subscribe [:notebook])
+  (let [notebook (subscribe [:notebook/current])
         active-segment (subscribe [:notebook/segment-active])]
     (fn []
       (let [active-segment @active-segment

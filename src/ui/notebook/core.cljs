@@ -36,7 +36,7 @@
     (into [:div] (map seg-view segments))))
 
 (defn notebook-view [opts]
-  (let [doc (rf/subscribe [:notebook]) ; current notebook
+  (let [doc (rf/subscribe [:notebook/current]) ; current notebook
         layout (rf/subscribe [:notebook/layout])]
     (fn [opts]
        ;[:div.w-full.h-full.min-h-full.bg-gray-100 ; .overflow-scroll

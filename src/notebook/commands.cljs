@@ -5,7 +5,6 @@
 
 ; shorter keybindings for notebook
 
-
 (rf/reg-event-fx
  :notebook/evaluate-all
  (fn [_ _]
@@ -15,6 +14,14 @@
  :notebook/clear-all
  (fn [_ _]
    (rf/dispatch [:doc/exec [:clear-all]])))
+
+(rf/reg-event-fx
+ :notebook/meta-set
+ (fn [_ [_ k v]]
+   (info "changing notebook meta " k " to: " v)
+   (rf/dispatch [:doc/exec [:set-meta-key k v]])))
+
+; segment
 
 (rf/reg-event-fx
  :segment/kernel-toggle
@@ -32,24 +39,9 @@
    (rf/dispatch [:doc/exec [:kernel-toggle-active]])))
 
 (rf/reg-event-fx
- :notebook/meta-set
- (fn [_ [_ k v]]
-   (info "changing notebook meta " k " to: " v)
-   (rf/dispatch [:doc/exec [:set-meta-key k v]])))
-
-(rf/reg-event-fx
  :segment/add
  (fn [_ [_]]
    (rf/dispatch [:doc/exec [:add-code :clj ""]])))
-
-;:segment/new-below
-
-#_(defn insert-segment
-    [index-fn notebook]
-    (let [{:keys [active order]} notebook
-          active-idx (.indexOf order active)
-          new-segment (create-code-segment "")]
-      (insert-segment-at notebook (index-fn active-idx) new-segment)))
 
 (rf/reg-event-fx
  :segment/new-above
@@ -61,4 +53,11 @@
  (fn [_ [_]]
    (rf/dispatch [:doc/exec [:insert-below]])))
 
+; position
+
+(rf/reg-event-db
+ :notebook/move
+ (fn [db [_ direction id]]
+   (rf/dispatch [:doc/exec [:move direction id]])
+   db))
 
