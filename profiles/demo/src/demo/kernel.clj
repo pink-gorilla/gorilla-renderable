@@ -4,6 +4,9 @@
    [taoensso.timbre :as timbre :refer [debugf info error]]
    [picasso.default-config] ; side-effects
    [picasso.kernel.protocol :refer [kernel-eval]]
+
+   [picasso.kernel.edn]
+   [picasso.kernel.clj]
    ))
 
 (defn eval-clj [code]

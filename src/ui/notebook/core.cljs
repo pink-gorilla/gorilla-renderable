@@ -2,8 +2,8 @@
   (:require
    [re-frame.core :as rf]
    ; side-effects
+   [picasso.default-config] ; side-effects
    [picasso.kernel.view.picasso :refer [picasso-result]]
-   [picasso.kernel.view.default-painter] ; side-effects
    [notebook.transactor] ;side-effects
    [notebook.position :refer [segment-active]] ;side-effects
    ; ui

@@ -6,6 +6,7 @@
    [demo.routes :refer [routes-api routes-app]]
    ; side-effects 
    [picasso.default-config]
+   [picasso.kernel.edn]
    [demo.events]
    [demo.pages.main]
    [demo.pages.eval]

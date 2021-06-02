@@ -2,7 +2,7 @@
   (:require
    [clojure.test :refer :all]
    ;[cljs.test :refer-macros [async deftest is testing]]
-   [picasso.paint.hiccup :refer [->reagent]]))
+   [picasso.paint.transformer :refer [->reagent]]))
 
 (def data
   [{:type :hiccup

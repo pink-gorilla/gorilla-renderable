@@ -5,17 +5,18 @@
 
    ; render
    #?(:clj [picasso.render.clj-types])
-   #?(:clj [picasso.render.image])
    #?(:cljs [picasso.render.cljs-types])
+   #?(:clj [picasso.render.image])
+
 
    ; paint
+
+
    [picasso.paint.default]
    [picasso.paint.hiccup]
+   #?(:cljs [picasso.paint.html-text])
    [picasso.paint.list-like]
-
-   ; kernel
-   [picasso.kernel.edn]
-   #?(:clj [picasso.kernel.clj])
+   #?(:cljs [picasso.paint.pinkie])
 
    ;
    ))

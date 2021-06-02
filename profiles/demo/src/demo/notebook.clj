@@ -5,6 +5,8 @@
    [taoensso.timbre :as timbre :refer [debugf info error]]
    [picasso.default-config] ; side-effects
    [notebook.transactor :refer [exec notebook]]
+   [picasso.kernel.edn]
+[picasso.kernel.clj]
    )
   (:gen-class))
 

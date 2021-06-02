@@ -3,7 +3,8 @@
    [webly.user.app.app :refer [webly-run!]]
    ; side-effects
    [demo.routes]
-))
+   [picasso.kernel.edn]
+   [picasso.kernel.clj]))
 
 (defn -main
   [profile-name]
