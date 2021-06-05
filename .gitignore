@@ -23,4 +23,4 @@ package-lock.json
 /karma.conf.js
 shadow-cljs.edn
 demo-nb.edn
-webly-routes.edn
+.webly

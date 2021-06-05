@@ -2,7 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [info warn]]
    [re-frame.core :refer [reg-event-db dispatch]]
-   [notebook.template :refer [make-notebook]]
+   [notebook.template.core :refer [make-notebook]]
    ))
 
 (reg-event-db
