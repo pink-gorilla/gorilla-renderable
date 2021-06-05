@@ -27,7 +27,7 @@
    (make-notebook (make-hip-nsname)))
   ([hip-nsname]
    (-> (nb/new-notebook)
-       (add-md "# Pink Gorilla \n\n")
+       (add-md "# Pink Gorilla")
        (add-code
         "(ns " hip-nsname ")\n"
         "(require '[pinkgorilla.repl :refer [require-default]]) \n "
