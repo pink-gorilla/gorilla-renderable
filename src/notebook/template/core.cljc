@@ -39,4 +39,4 @@
         "^:R [:p.bg-blue-300 \"Hello, World!\"] \n")
 
        (add-code
-        "(list-plot (concat (range 10) (reverse (range 10))))"))))
+        "(plot/list-plot (concat (range 10) (reverse (range 10))))"))))
