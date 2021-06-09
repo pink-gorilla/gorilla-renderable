@@ -5,6 +5,7 @@
 
 (defonce fns-lookup
   (atom {:set-meta-key edit/set-meta-key
+         :add-segment edit/add-segment
          :add-md edit/add-md
          :add-code edit/add-code
          :remove-segment edit/remove-segment
