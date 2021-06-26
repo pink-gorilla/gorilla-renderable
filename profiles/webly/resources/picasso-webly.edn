@@ -1,10 +1,21 @@
-{:webly {:title "Webly Demo"
-         :lein-cljs-profile "+demo"
-         :ns-cljs-app [demo.app]
-         :bundle-entry  "demo.app.start ();"
+{:webly {:title "Webly NRepl Demo"
+         ; clj
+         :ns-clj [picasso.kernel.edn
+                  picasso.kernel.clj]
+
+         ; cljs
+         :ns-cljs [picasso.default-config
+                   picasso.kernel.edn
+                   demo.events
+                   demo.pages.main
+                   demo.pages.eval
+                   demo.pages.doc]
+
          :start-user-app [:demo/start]
-         :user-routes-app "demo.routes/routes-app"
-         :user-routes-api "demo.routes/routes-api"}
+         :routes {:app {""        :demo/main
+                        "eval"    :demo/eval
+                        "doc"    :notebook/current}
+                  :api {}}}
 
  :google-analytics {:enabled true} ; set to false to disable google-analytics tracking.
 

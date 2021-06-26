@@ -29,10 +29,10 @@
 
   :profiles {:demo {:source-paths ["profiles/demo/src"]}
 
-             :webly {:dependencies [[org.pinkgorilla/webly "0.2.46"]
+             :webly {:dependencies [[org.pinkgorilla/webly "0.3.8"]
                                     [org.pinkgorilla/pinkie "0.3.3"]
-                                    [org.pinkgorilla/ui-markdown "0.0.8"]
-                                    [org.pinkgorilla/ui-code "0.0.12"]]
+                                    [org.pinkgorilla/ui-markdown "0.0.9"]
+                                    [org.pinkgorilla/ui-code "0.0.13"]]
                      :source-paths ["profiles/webly/src"]
                      :resource-paths  [;"target/webly"
                                        "profiles/webly/resources"]}
@@ -58,7 +58,7 @@
             ["change" "version" "leiningen.release/bump-version"]
 
             "webly"
-            ["with-profile" "+webly" "run" "-m" "demo.app"]
+            ["with-profile" "+webly" "run" "-m" "webly.user.app.app" "picasso-webly.edn"]
 
             "test-js" ^{:doc "run unit test JavaScript."}
             ["do"
@@ -66,7 +66,7 @@
              ["shell" "npm" "test"]]
 
             "demo"
-            ["with-profile" "+webly" "run" "-m" "demo.app" "watch"]
+            ["webly" "watch"]
 
             "transactor"
             ["with-profile" "+demo" "run" "-m" "demo.notebook"]})
