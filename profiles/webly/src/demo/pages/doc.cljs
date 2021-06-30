@@ -14,7 +14,7 @@
 (def opts
   {
    ; if a layout option is passed this will override the settings in localstorage
-   ;:layout :single ; :vertical ; :horizontal
+   :layout :stacked ; :single ; :vertical ; :horizontal
    :view-only false
    })
 
