@@ -1,0 +1,80 @@
+{:paths ["src"
+         "resources"  ; webly resources (svg/img)
+         ;"target/node_modules"  ; css png resources from npm modules (tailwind)
+         ]
+ :deps {org.clojure/tools.reader {:mvn/version "1.3.5"} ; tag version
+        org.clojure/clojure {:mvn/version "1.10.3"}
+        org.clojure/core.async {:mvn/version "1.3.618"}
+        com.taoensso/timbre {:mvn/version "5.1.2"} ; clj/cljs logging
+        com.rpl/specter {:mvn/version "1.1.3"} ; hiccup -> reagent
+        com.lucasbradstreet/cljs-uuid-utils {:mvn/version "1.0.2"} ; uuid - clojurescript
+        org.clojure/data.codec {:mvn/version "0.1.1"}} ; image base64 encoding
+ :aliases
+ {:garamond
+  {:main-opts ["-m" "garamond.main"]
+   :extra-deps {com.workframe/garamond {:mvn/version "0.4.0"}}}
+
+  ;https://github.com/applied-science/deps-library 1.0.861
+  :release {:extra-deps {applied-science/deps-library {:mvn/version "0.4.0"}}
+            :main-opts ["-m" "applied-science.deps-library"]}
+
+  ; https://github.com/weavejester/cljfmt
+  :cljfmt     {:extra-deps {cljfmt/cljfmt {:mvn/version "RELEASE"}}
+               :main-opts ["-m" "cljfmt.main" "check" "--indents" "cljfmt.edn"]}
+  :cljfmt-fix {:extra-deps {cljfmt/cljfmt {:mvn/version "RELEASE"}}
+               :main-opts ["-m" "cljfmt.main" "fix" "--indents" "cljfmt.edn"]}
+
+ ; https://github.com/clj-kondo/clj-kondo/blob/master/doc/jvm.md
+  :lint {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+         :main-opts ["-m" "clj-kondo.main"
+                     "--fail-level" "error"
+                     "--lint" "src"]}
+
+  :cloverage {:extra-paths ["test"]
+              :extra-deps  {cloverage/cloverage {:mvn/version "RELEASE"}}
+              :main-opts   ["-m" "cloverage.coverage"
+                            "--src-ns-path" "src"
+                            "--test-ns-path" "test"]
+              :exec-fn     cloverage.coverage/run-project
+              :exec-args   {:src-ns-path  ["src"]
+                            :test-ns-path ["test"]}}
+
+  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"]}
+
+  :check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
+                                        :sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
+          :main-opts ["-m" "clj-check.check"]}
+
+  :test {:extra-paths ["test"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                       :sha "f597341b6ca7bb4cf027e0a34a6710ca9cb969da"}}
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}
+
+  ; picasso
+
+  :ci {:extra-paths ["test"]
+       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.31"}
+                     org.pinkgorilla/pinkie {:mvn/version "0.3.3"}}
+       :exec-fn webly.user.app.app/webly-run
+       :exec-args {:profile "ci"
+                   :config nil}}
+
+  :transactor {:extra-paths ["profiles/demo/src"]
+               :main-opts ["-m" "demo.notebook"]}
+
+  :webly {:extra-paths ["profiles/webly/src"
+                        "profiles/webly/resources"]
+          :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.31"}
+                        org.pinkgorilla/pinkie {:mvn/version "0.3.3"}
+                        org.pinkgorilla/ui-markdown {:mvn/version "0.0.11"}
+                        org.pinkgorilla/ui-code {:mvn/version "0.0.17"}}
+          :exec-fn webly.user.app.app/webly-run
+          :exec-args {:profile "watch2"  ;watch2 - 10x disabled
+                      :config "picasso-webly.edn"}}
+
+;
+  }}
+

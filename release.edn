@@ -1,0 +1,4 @@
+{:group-id "org.pinkgorilla"
+ :artifact-id "picasso"
+ :scm-url "https://github.com/pink-gorilla/picasso/"
+ }

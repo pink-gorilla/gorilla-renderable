@@ -4,6 +4,7 @@
    [clojure.core.async :refer [<! go]]
    [picasso.kernel.protocol :refer [kernel-eval]]
    [picasso.default-config]  ; side-effects
+   [picasso.kernel.clj] ; add clj kernel
    ))
 
 (defn r= [a b]

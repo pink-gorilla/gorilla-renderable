@@ -9,13 +9,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    #strategy:
-    #  matrix:
-    #    node-version: [8.x, 10.x, 12.x]
-
     steps:
     - uses: actions/checkout@v2
-    #- name: Use Node.js ${{ matrix.node-version }}
     - name: Cache Maven dependencies
       uses: actions/cache@v1
       with:
@@ -23,11 +18,5 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/project.clj') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-    - name: Install dependencies
-      run: |
-        lein deps
     - name: Check formatting
-      run: lein cljfmt check
-    - name: Run tests
-      run: |
-        lein test
+      run: clojure -M:cljfmt

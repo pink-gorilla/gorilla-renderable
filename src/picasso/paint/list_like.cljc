@@ -6,7 +6,6 @@
   ; but initial gorilla list-alike converter didnt obey this,
   ; and supplied the options directly.
 
-
 (defn box [class open close inside]
   [:span {:class class}
    [:span.font-bold.teal-700.mr-1 open]

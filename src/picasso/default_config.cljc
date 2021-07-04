@@ -8,9 +8,7 @@
    #?(:cljs [picasso.render.cljs-types])
    #?(:clj [picasso.render.image])
 
-
-   ; paint
-
+; paint
 
    [picasso.paint.default]
    [picasso.paint.hiccup]

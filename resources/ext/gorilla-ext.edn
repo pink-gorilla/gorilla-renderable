@@ -7,9 +7,8 @@
 
  :cljs-ns-bindings {}
 
- :theme {:available  {:datatypes {true ["picasso/datatypes.css"]}}
-         :current {:datatypes true ; picasso clj/cljs datatypes 
-                   }}
+ :theme {:available  {:datatypes {true ["picasso/datatypes.css"]}} ; picasso clj/cljs datatypes
+         :current {:datatypes true }}
 
  ; modules and pinkie not yet via loader
  :pinkie {}

@@ -1,13 +1,12 @@
 # Picasso [![GitHub Actions status |pink-gorilla/picasso](https://github.com/pink-gorilla/picasso/workflows/CI/badge.svg)](https://github.com/pink-gorilla/picasso/actions?workflow=CI)[![Clojars Project](https://img.shields.io/clojars/v/org.pinkgorilla/picasso.svg)](https://clojars.org/org.pinkgorilla/picasso)
 
-- This project is used in [Notebook](https://github.com/pink-gorilla/gorilla-notebook) ,
+- This project is used in [Notebook](https://github.com/pink-gorilla/notebook) ,
   but the library can be used independently.
 - Data structures from clojure/clojurescript have to be converted to some kind
 of visual repesentation so that the notebook can render them
 - For all clojure/clojurescript datatypes default renderers are defined here
 - Custom data-types can implement the renderable protocol 
 - The notebook receives the render-datastructure and renders it to the notebook cell.
-
 
 This are the core concepts in picasso:
 
@@ -21,8 +20,6 @@ This are the core concepts in picasso:
 ```
 (defmulti paint :type)
 ```
-
-
 
 Clojure/Clojurescript Data => (render) => Picasso DataStructure => (paint) => Notebook
 
@@ -63,21 +60,13 @@ Clojure/Clojurescript Data => (render) => Picasso DataStructure => (paint) => No
 ## UI Demo
 
 ```
-lein webly watch
+clojure -X:webly
 ```
 
 ## Unit Tests 
 
-Clojure:
-```
-lein test
-```
-
-Clojurescript:
-```
-lein webly npm-install
-lein test-js
-```
+Clojure: `clojure -M:test`
+Clojurescript: `./script/test-cljs.sh`
 
 ## paint implementation
 - `:default` picasso
@@ -88,14 +77,11 @@ lein test-js
 - `:pinkie` notebook-ui (needs pinkie)
 - `:reagent` notebook-ui (needs pinkie)
 - `:goldly` not yet implemented. will be in goldly 
-
-
+  
 # notebook transactor
 
-`lein transactor new` creates demo-nb.edn
-`lein transactor add` adds new code segment to document,and reevaluates notebook.
-
-
+`clojure -M:transactor new` creates demo-nb.edn
+`clojure -M:transactor add` adds new code segment to document,and reevaluates notebook.
 
 ## Licence
 

@@ -6,7 +6,6 @@
 ;; This helper constructs the rendered
 ;; value in that case.
 
-
 (defn span-render
   [thing class]
   (make :hiccup

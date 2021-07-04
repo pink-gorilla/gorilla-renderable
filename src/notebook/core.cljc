@@ -63,7 +63,6 @@
 
 ;(defn update-segment-state [{:keys [segments] :as doc} seg-id])
 
-
 (defn remove-segment [doc id]
   (s/transform
    [:segments (s/filterer (partial seg-with-id id))]

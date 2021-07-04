@@ -2,7 +2,8 @@
   (:require
    [clojure.test :refer :all]
    [picasso.protocols :refer [render]]
-   [picasso.render.image :refer [image-view]])
+   [picasso.render.image :refer [image-view]]
+   )
   (:import java.io.File
            java.io.InputStream
            javax.imageio.ImageIO))

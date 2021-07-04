@@ -10,9 +10,8 @@
    [ui.markdown.goldly.core] ;side-effects
    [ui.code.goldly.core] ;side-effects
    ; notebook
-   [ui.notebook.view.layout :refer [notebook-layout]]
    [ui.notebook.settings] ; side-effects
-   [ui.notebook.css]))
+   [ui.notebook.view.layout :refer [notebook-layout]]))
 
 (defn render-unknown [{:keys [id type data state] :as seg}]
   [:div.render-unknown

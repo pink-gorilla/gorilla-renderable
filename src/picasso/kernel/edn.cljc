@@ -13,7 +13,7 @@
   (let [c (chan)]
     (debug "edn-eval: " code)
     (go (try (let [eval-result (edn/read-string code)
-                   _ (<! (timeout 7000)) ; to test eval all
+                   _ (<! (timeout 3000)) ; to test eval all
                    _ (debug "eval result: " eval-result)
                    picasso (->picasso eval-result)
                    _ (debug "picasso: " picasso)

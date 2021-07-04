@@ -6,7 +6,6 @@
 
 ; shorter keybindings for notebook
 
-
 (rf/reg-event-fx
  :notebook/evaluate-all
  (fn [_ _]
@@ -62,7 +61,6 @@
    (rf/dispatch [:doc/exec [:remove-segment-active]])))
 
 ; position
-
 
 (rf/reg-event-fx
  :notebook/move

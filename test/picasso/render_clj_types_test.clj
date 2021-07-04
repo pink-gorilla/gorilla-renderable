@@ -69,9 +69,7 @@
 
 (defrecord MyRecord [r])
 
-
 ;; TODO awb99: this works on cljs, but not on clj.
-
 
 #_(deftest renderable-catch-all
     (let [u (MyRecord. 3)]

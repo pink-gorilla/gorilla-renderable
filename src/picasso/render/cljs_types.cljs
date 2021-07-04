@@ -53,7 +53,6 @@
 ;; the map we render each of these key-value pairs with this helper function. They are rendered as list-likes with no
 ;; bracketing. These will then be assembled in to a list-like for the whole map by the IPersistentMap render function.
 
-
 (extend-type cljs.core/PersistentArrayMap
   Renderable
   (render [self]
@@ -114,7 +113,6 @@
       :separator  " "}
      self)))
 
-
 ;; This still needs to be implemented:
 ;; cljs.core/Range
 ;; cljs.core/Var
@@ -129,7 +127,6 @@
 ;; It's unfortunate since this means we can't currently use js/Object to
 ;; provide default protocol implementations as we do in Clojure w/o fear of
 ;; conflicts with JavaScript libraries.
-
 
 #_(extend-type js/Object
     Renderable

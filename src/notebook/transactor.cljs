@@ -91,7 +91,6 @@
 
 ;; compatibility
 
-
 (rf/reg-sub
  :document/current
  (fn [db _]

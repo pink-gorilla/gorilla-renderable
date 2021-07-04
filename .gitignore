@@ -9,7 +9,6 @@ pom.xml.asc
 /.nrepl-port
 .DS_Store
 /out
-/.cljs_node_repl
 /node_modules
 .shadow-cljs/*
 .classpath
@@ -17,6 +16,7 @@ pom.xml.asc
 .settings/*
 .lsp
 .calva
+.cpcache
 node_modules
 package.json
 package-lock.json

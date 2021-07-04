@@ -85,10 +85,7 @@
     (info "new current segment: " active-id)
     (assoc doc :active active-id)))
 
-
-
 ; commands
-
 
 (defn clear-segment-active [doc]
   (if-let [id (active-segment-id doc)]

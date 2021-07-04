@@ -5,11 +5,9 @@
    [picasso.render.span :refer [span-render]]
    [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
 
-
 ;; Renderers for basic Clojure forms **
 
 ;; A default, catch-all renderer that takes anything we don't know what to do with
-
 
 (extend-type Object
   Renderable
@@ -150,11 +148,9 @@
       :separator " "}
      self)))
 
-
 ;; When we render a map we will map over its entries, which will yield key-value pairs represented as vectors. To render
 ;; the map we render each of these key-value pairs with this helper function. They are rendered as list-likes with no
 ;; bracketing. These will then be assembled in to a list-like for the whole map by the IPersistentMap render function.
-
 
 (extend-type clojure.lang.IPersistentMap
   Renderable
