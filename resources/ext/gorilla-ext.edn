@@ -1,18 +1,12 @@
 {:name "picasso"
  :clj-require [] ; consider picasso.repl fns
-
- :cljs-namespace [] 
-
- :cljs-bindings {}
-
+ :theme {:available  {:datatypes {true ["picasso/datatypes.css"]}} ; picasso clj/cljs datatypes 
+        :current {:datatypes true}}
+ :cljs-namespace [picasso.repl] 
+ :cljs-bindings {'R! picasso.repl/R!}
  :cljs-ns-bindings {}
-
- :theme {:available  {:datatypes {true ["picasso/datatypes.css"]}} ; picasso clj/cljs datatypes
-         :current {:datatypes true }}
-
- ; modules and pinkie not yet via loader
  :pinkie {}
+ ; modules and pinkie not yet via loader
  :modules {}
-
  :snippets []}
 

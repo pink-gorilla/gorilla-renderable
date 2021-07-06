@@ -1,5 +1,6 @@
 (ns demo.pages.doc
   (:require
+   [reagent.core :as r]
    [re-frame.core :as rf]
    [webly.web.handler :refer [reagent-page]]
    [picasso.data.notebook :as data] ; sample-data
@@ -7,8 +8,6 @@
    [demo.site :refer [template-header-document menu]]
    ))
 
-;(rf/dispatch [:css/set-theme-component :codemirror "base16-light"])
-(rf/dispatch [:css/set-theme-component :codemirror "mdn-like"])
 (rf/dispatch [:doc/load data/notebook])
 
 (def opts
@@ -18,10 +17,22 @@
    :view-only false
    })
 
-(defmethod reagent-page :notebook/current [{:keys [route-params query-params handler] :as route}]
+(defn nb-page  []
+  (let [f (r/atom true)]
+    (when @f
+      (rf/dispatch [:css/set-theme-component :codemirror "mdn-like"])
+      ;(rf/dispatch [:css/set-theme-component :codemirror "base16-light"])
+      (reset! f false) 
+      )
   [template-header-document
-    [menu]
-    [notebook-view opts]])
+   [menu]
+   [notebook-view opts]]
+  ))
+
+
+(defmethod reagent-page :notebook/current [{:keys [route-params query-params handler] :as route}]
+  [nb-page]
+  )
 
 
 (rf/reg-event-fx

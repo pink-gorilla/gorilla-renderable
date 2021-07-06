@@ -60,7 +60,7 @@ Clojure/Clojurescript Data => (render) => Picasso DataStructure => (paint) => No
 ## UI Demo
 
 ```
-clojure -X:webly
+clojure -X:goldly
 ```
 
 ## Unit Tests 

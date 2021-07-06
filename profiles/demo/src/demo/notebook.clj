@@ -6,10 +6,8 @@
    [picasso.default-config] ; side-effects
    [notebook.transactor :refer [exec notebook]]
    [picasso.kernel.edn]
-[picasso.kernel.clj]
-   )
+   [picasso.kernel.clj])
   (:gen-class))
-
 
 (defn -main [mode]
   (case mode
@@ -22,7 +20,7 @@
               (exec [:add-code :edn "{:a 1 :b 2}"])
               (exec [:eval-all]))
 
-    "add" (let [doc (-> (slurp "demo-nb.edn") (edn/read-string))]  
+    "add" (let [doc (-> (slurp "demo-nb.edn") (edn/read-string))]
             (exec [:load-notebook doc])
             (exec [:add-code :clj "(def b [x] (+ b 1000))"])
             (exec [:eval-all])))
