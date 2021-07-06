@@ -7,8 +7,8 @@
    [notebook.transactor] ;side-effects
    [notebook.position :refer [segment-active]] ;side-effects
    ; ui
-   [ui.markdown.goldly.core] ;side-effects
-   [ui.code.goldly.core] ;side-effects
+   ;[ui.markdown.goldly.core] ;side-effects
+   ;[ui.code.goldly.core] ;side-effects
    ; notebook
    [ui.notebook.settings] ; side-effects
    [ui.notebook.view.layout :refer [notebook-layout]]))
