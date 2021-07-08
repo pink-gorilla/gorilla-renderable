@@ -2,9 +2,13 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [re-frame.core :as rf]
-   [ui.markdown.viewer :refer [markdown-viewer]]
-   [ui.markdown.prosemirror :as prosemirror]
+   [webly.build.lazy :refer-macros [wrap-lazy]]
+   ;[ui.markdown.viewer :refer [markdown-viewer]] 
+   ;[ui.markdown.prosemirror :refer [prosemirror-reagent]]
    [ui.notebook.view.segment-menu :refer [cell-menu]]))
+
+(def markdown-viewer (wrap-lazy ui.markdown.viewer/markdown-viewer))
+(def prosemirror-reagent (wrap-lazy ui.markdown.prosemirror/prosemirror-reagent2))
 
 (def pm-fun {:get-data (fn [id]
                          (let [s (rf/subscribe [:notebook/segment id])]
@@ -22,7 +26,7 @@
 
 (defn md-segment-edit
   [{:keys [id data]} active?]
-  [prosemirror/prosemirror-reagent id pm-fun active?])
+  [prosemirror-reagent id pm-fun active?])
 
 (defn md-segment
   [nb-settings {:keys [id] :as seg}]

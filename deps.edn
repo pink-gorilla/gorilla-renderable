@@ -1,7 +1,5 @@
 {:paths ["src"
-         "resources"  ; webly resources (svg/img)
-         ;"target/node_modules"  ; css png resources from npm modules (tailwind)
-         ]
+         "resources"]  ; webly resources (svg/img)
  :deps {org.clojure/tools.reader {:mvn/version "1.3.5"} ; tag version
         org.clojure/clojure {:mvn/version "1.10.3"}
         org.clojure/core.async {:mvn/version "1.3.618"}
@@ -56,8 +54,8 @@
   ; picasso
 
   :ci {:extra-paths ["test"]
-       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.31"}
-                     org.pinkgorilla/pinkie {:mvn/version "0.3.3"}}
+       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.38"}
+                     org.pinkgorilla/pinkie {:mvn/version "0.3.10"}}
        :exec-fn webly.user.app.app/webly-run
        :exec-args {:profile "ci"
                    :config nil}}
@@ -74,11 +72,12 @@
 
   :goldly {:extra-paths ["profiles/goldly/src"
                          "profiles/goldly/resources"]
-           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "RELEASE"
-                                                 :exclusions [org.pinkgorilla/picasso]}
-                         org.pinkgorilla/pinkie {:mvn/version "0.3.3"}
-                         org.pinkgorilla/ui-markdown {:mvn/version "0.0.11"}
-                         org.pinkgorilla/ui-code {:mvn/version "0.0.17"}}
+           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "0.3.11"
+                                                 :exclusions [org.pinkgorilla/picasso
+                                                              ]}
+                         org.pinkgorilla/pinkie {:mvn/version "0.3.10"}
+                         org.pinkgorilla/ui-markdown {:mvn/version "0.0.16"}
+                         org.pinkgorilla/ui-code {:mvn/version "0.0.24"}}
            :exec-fn goldly-server.app/goldly-server-run!
            :exec-args {:profile "watch2"
                        :config "picasso-webly.edn"}}

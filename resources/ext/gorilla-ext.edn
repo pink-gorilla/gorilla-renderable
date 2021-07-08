@@ -6,7 +6,6 @@
  :cljs-bindings {'R! picasso.repl/R!}
  :cljs-ns-bindings {}
  :pinkie {}
- ; modules and pinkie not yet via loader
- :modules {}
+ :lazy false
  :snippets []}
 

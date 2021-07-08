@@ -3,7 +3,10 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [re-frame.core :as rf]
    [ui.notebook.view.segment-menu :refer [cell-menu]]
-   [ui.code.goldly.codemirror-themed  :refer [codemirror-themed]]))
+   [webly.build.lazy :refer-macros [wrap-lazy]]
+   ;[ui.code.goldly.codemirror-themed  :refer [codemirror-themed]]
+   ))
+(def codemirror-themed (wrap-lazy ui.code.goldly.codemirror-themed/codemirror-themed2))
 
 (def cm-fun {:get-data (fn [id]
                          (let [s (rf/subscribe [:notebook/segment id])]
