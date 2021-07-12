@@ -24,3 +24,4 @@ package-lock.json
 shadow-cljs.edn
 demo-nb.edn
 .webly
+goldly_bindings_generated.cljs
