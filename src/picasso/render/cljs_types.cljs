@@ -3,6 +3,7 @@
   "equivalent to pinkgorilla.ui.renderer, but for clojurescript
    renders clojurescript data structure to html"
   (:require
+   [taoensso.timbre :refer-macros [errorf]]
    [picasso.protocols :refer [Renderable render]]
    [picasso.render.span :refer [span-render]]
    [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
@@ -136,6 +137,5 @@
 (extend-type default
   Renderable
   (render [self]
-    (println "render of unknown type: " (type self))
-    (println "render of unknown type: " (pr-str self))
+    (errorf "render of unknown cljs type: %s data: %s " (type self) (pr-str self))
     (span-render self "clj-unknown")))

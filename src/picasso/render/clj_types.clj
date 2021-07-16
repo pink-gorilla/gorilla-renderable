@@ -1,6 +1,7 @@
 (ns picasso.render.clj-types
   "converts clojure values to html representation"
   (:require
+   [taoensso.timbre :refer-macros [errorf]]
    [picasso.protocols :refer [Renderable render]]
    [picasso.render.span :refer [span-render]]
    [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
@@ -12,6 +13,7 @@
 (extend-type Object
   Renderable
   (render [self]
+    (errorf "render of unknown clj type: %s data: %s " (type self) (pr-str self))
     (span-render self "clj-unknown")))
 
 ;; nil values are a distinct thing of their own
