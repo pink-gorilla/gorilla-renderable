@@ -19,7 +19,7 @@
                           (rf/dispatch [:doc/exec [:set-code-segment id text]]))
 
              :cm-events (fn [[type & args]]
-                          (info "cm event type: " type " args: " args)
+                          (debug "cm event type: " type " args: " args)
                           ;[:cm/mouse-down 3 {"left" 33, "right" 33, "top" 333, "bottom" 351}
                           (case type
                             :cm/mouse-down (rf/dispatch [:notebook/move :to (first args)])

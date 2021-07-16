@@ -1,6 +1,6 @@
 (ns notebook.position
   (:require
-   [taoensso.timbre :as timbre :refer [debugf info error]]
+   [taoensso.timbre :as timbre :refer [debug info error]]
    [notebook.core :as nb]
    [com.rpl.specter :as s]))
 
@@ -54,7 +54,7 @@
 
 (defn move-up-down [doc direction]
   (if-let [current-segment-id (:active doc)]
-    (let [_ (info "move-up-down " current-segment-id "dir:" direction)
+    (let [_ (debug "move-up-down " current-segment-id "dir:" direction)
           segments (:segments doc)
           order (map :id segments)
           v-indexed (map-indexed (fn [idx id] [idx id]) order)
@@ -82,7 +82,7 @@
                     :first (first (:segments doc))
                     :last (last (:segments doc))
                     :to id)]
-    (info "new current segment: " active-id)
+    (debug "new current segment: " active-id)
     (assoc doc :active active-id)))
 
 ; commands
