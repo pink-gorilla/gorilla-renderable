@@ -1,6 +1,6 @@
 (ns ui.notebook.loader.load
   (:require
-   [taoensso.timbre :as timbre :refer-macros [debugf info error errorf]]
+   [taoensso.timbre :as timbre :refer-macros [debugf info infof error errorf]]
    [re-frame.core :as rf]
    [notebook.template.core :refer [make-notebook]]))
 
@@ -9,7 +9,8 @@
 (defmethod load-notebook :default [{:keys [type]}]
   (errorf "cannot load notebook type [%s] - not implemented!"))
 
-(defmethod load-notebook :embedded [{:keys [type data]}]
+(defmethod load-notebook :embedded [{:keys [type name data]}]
+  (infof "loading embedded notebook %s" name)
   (rf/dispatch [:doc/load data]))
 
 (rf/reg-event-db

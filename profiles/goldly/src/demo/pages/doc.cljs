@@ -9,10 +9,16 @@
    ))
 
 (def nb-list-embed
-  {:name "embedded"
-   :notebooks [{:name "cljs"
+  {:name "cljs"
+   :notebooks [{:name "a"
                 :type :embedded
-                :data data/notebook}]})
+                :data data/notebook}
+               {:name "b"
+                :type :embedded
+                :data data/notebook}
+               {:name "t"
+                :type :template}
+               ]})
 
 (rf/dispatch [:doc/load data/notebook])
 
