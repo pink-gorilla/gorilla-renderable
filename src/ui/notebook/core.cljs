@@ -32,13 +32,13 @@
      [:p "meta: " (pr-str meta)]]
     (into [:div] (map seg-view segments))))
 
-(defn notebook-view [opts]
+(defn notebook-view []
   (let [doc (rf/subscribe [:notebook/current]) ; current notebook
-        layout (rf/subscribe [:notebook/layout])]
-    (fn [opts]
+        settings (rf/subscribe [:notebook/settings])]
+    (fn []
        ;[:div.w-full.h-full.min-h-full.bg-gray-100 ; .overflow-scroll
       [notebook-layout
-       (merge {:layout @layout} opts)
+       @settings
        (segment-active @doc)
        (:segments @doc)])))
 

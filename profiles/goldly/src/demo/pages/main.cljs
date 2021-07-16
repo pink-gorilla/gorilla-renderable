@@ -23,6 +23,8 @@
 (defn demo-eval []
   [block
    [:p.text-4xl "bidi routes"]
+    [link-href "/goldly/about" "goldly about"]
+
    [:p [link-dispatch [:bidi/goto :demo/eval] "eval"]]
    [:p [link-dispatch [:bidi/goto :notebook/current] "notebook"]]])
 

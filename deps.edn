@@ -54,33 +54,25 @@
   ; picasso
 
   :ci {:extra-paths ["test"]
-       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.38"}
-                     org.pinkgorilla/pinkie {:mvn/version "0.3.10"}}
+       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.47"}
+                     org.pinkgorilla/pinkie {:mvn/version "0.3.11"}}
        :exec-fn webly.user.app.app/webly-run
        :exec-args {:profile "ci"
                    :config nil}}
 
-  #_:webly #_{:extra-paths ["profiles/webly/src"
-                            "profiles/webly/resources"]
-              :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.31"}
-                            org.pinkgorilla/pinkie {:mvn/version "0.3.3"}
-                            org.pinkgorilla/ui-markdown {:mvn/version "0.0.11"}
-                            org.pinkgorilla/ui-code {:mvn/version "0.0.17"}}
-              :exec-fn webly.user.app.app/webly-run
-              :exec-args {:profile "watch2"  ;watch2 - 10x disabled
-                          :config "picasso-webly.edn"}}
-
   :goldly {:extra-paths ["profiles/goldly/src"
                          "profiles/goldly/resources"]
-           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "0.3.11"
+           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "0.3.26"
                                                  :exclusions [org.pinkgorilla/picasso
+                                                              ;org.pinkgorilla/nrepl-middleware
                                                               ]}
-                         org.pinkgorilla/pinkie {:mvn/version "0.3.10"}
-                         org.pinkgorilla/ui-markdown {:mvn/version "0.0.16"}
-                         org.pinkgorilla/ui-code {:mvn/version "0.0.24"}}
+                         org.pinkgorilla/pinkie {:mvn/version "0.3.11"}
+                         org.pinkgorilla/ui-markdown {:mvn/version "0.0.18"}
+                         org.pinkgorilla/ui-code {:mvn/version "0.0.26"}
+                         }
            :exec-fn goldly-server.app/goldly-server-run!
            :exec-args {:profile "watch2"
-                       :config "picasso-webly.edn"}}
+                       :config "picasso-goldly.edn"}}
 
   :transactor {:extra-paths ["profiles/demo/src"]
                :main-opts ["-m" "demo.notebook"]}
