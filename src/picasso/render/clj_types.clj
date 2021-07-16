@@ -1,7 +1,7 @@
 (ns picasso.render.clj-types
   "converts clojure values to html representation"
   (:require
-   [taoensso.timbre :refer-macros [errorf]]
+   [taoensso.timbre :refer [errorf]]
    [picasso.protocols :refer [Renderable render]]
    [picasso.render.span :refer [span-render]]
    [picasso.render.list-like :refer [list-like-render list-like-render-map]]))
