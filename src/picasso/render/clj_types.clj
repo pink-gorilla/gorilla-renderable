@@ -32,12 +32,10 @@
   (render [self]
     (span-render self "clj-symbol")))
 
-
 (extend-type clojure.lang.Namespace
   Renderable
   (render [self]
     (span-render self "clj-namespace")))
-
 
 (extend-type clojure.lang.Keyword
   Renderable
