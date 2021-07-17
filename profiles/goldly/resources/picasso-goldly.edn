@@ -1,19 +1,15 @@
 {:webly {:title "picasso dev playground"
-         ; clj
-         :ns-clj [picasso.kernel.edn
-                  picasso.kernel.clj]
-         ; cljs
+         :ns-clj [goldly-server.app
+                  picasso.kernel.edn
+                  ;picasso.kernel.clj
+                  ]
          :ns-cljs [goldly-server.app
                    picasso.default-config
                    picasso.kernel.edn
                    demo.events
                    demo.pages.main
                    demo.pages.eval
-                   demo.pages.doc]
-
-         ;:start-user-app [:demo/start]
-         }
-
+                   demo.pages.doc]}
 
  :google-analytics {:enabled true} ; set to false to disable google-analytics tracking.
 
@@ -23,8 +19,10 @@
                    [#{"picasso.*"} :info]
                    [#{"ui.notebook.*"} :info]
                    [#{"ui.codemirror.*"} :info]
+                   [#{"ui.*"} :info]
                    [#{"notebook.*"} :info]
                    [#{"goldly.*"} :info]
+                   [#{"pinkgorilla.nrepl.*"} :info]
                    [#{"*"} :debug]]
 
  :settings {:use-localstorage  false  ; allow user to change settings via localstorage
@@ -35,6 +33,7 @@
 
  :goldly {:lazy true ; mandatory as markdown is required lazily
           :lazy-exclude #{"ui-binaryclock"}
+          :notebook-dir "profiles/goldly/src/demo/notebooks"
           :routes {""      :demo/main
                    "eval"  :demo/eval
                    "doc"   :notebook/current}}

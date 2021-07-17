@@ -10,6 +10,7 @@
 .clj-raw {color: red}
 .clj-nil {color: grey}
 .clj-symbol {color: steelblue}
+.clj-namespace {color: steelblue}
 .clj-keyword {color: rgb(30, 30, 82)}
 .clj-var {color: deeppink}
 .clj-atom {color: darkorange}

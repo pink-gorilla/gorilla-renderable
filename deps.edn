@@ -1,6 +1,6 @@
 {:paths ["src"
          "resources"]  ; webly resources (svg/img)
- :deps {org.clojure/tools.reader {:mvn/version "1.3.5"} ; tag version
+ :deps {org.clojure/tools.reader {:mvn/version "1.3.6"} ; tag version
         org.clojure/clojure {:mvn/version "1.10.3"}
         org.clojure/core.async {:mvn/version "1.3.618"}
         com.taoensso/timbre {:mvn/version "5.1.2"} ; clj/cljs logging
@@ -47,14 +47,14 @@
   :test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
                       {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                       :sha "f597341b6ca7bb4cf027e0a34a6710ca9cb969da"}}
+                       :sha "4e7e1c0dfd5291fa2134df052443dc29695d8cbe"}}
          :main-opts ["-m" "cognitect.test-runner"]
          :exec-fn cognitect.test-runner.api/test}
 
   ; picasso
 
   :ci {:extra-paths ["test"]
-       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.47"}
+       :extra-deps  {org.pinkgorilla/webly {:mvn/version "0.3.49"}
                      org.pinkgorilla/pinkie {:mvn/version "0.3.11"}}
        :exec-fn webly.user.app.app/webly-run
        :exec-args {:profile "ci"
@@ -62,13 +62,14 @@
 
   :goldly {:extra-paths ["profiles/goldly/src"
                          "profiles/goldly/resources"]
-           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "0.3.26"
+           :extra-deps  {org.pinkgorilla/goldly {:mvn/version "0.3.29"
                                                  :exclusions [org.pinkgorilla/picasso
-                                                              ;org.pinkgorilla/nrepl-middleware
+                                                              org.pinkgorilla/nrepl-middleware
                                                               ]}
+                         org.pinkgorilla/nrepl-middleware {:mvn/version "0.3.53"}
                          org.pinkgorilla/pinkie {:mvn/version "0.3.11"}
                          org.pinkgorilla/ui-markdown {:mvn/version "0.0.18"}
-                         org.pinkgorilla/ui-code {:mvn/version "0.0.26"}
+                         org.pinkgorilla/ui-code {:mvn/version "0.0.28"}
                          }
            :exec-fn goldly-server.app/goldly-server-run!
            :exec-args {:profile "watch2"
